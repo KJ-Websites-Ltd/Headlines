@@ -1,0 +1,12 @@
+{
+    "name": "john/headlines",
+    "authors": [
+        {
+            "name": "John Jeeves",
+            "email": "john@kjwebsites.co.uk"
+        }
+    ],
+    "require": {
+        "j0k3r/graby": "^1.14"
+    }
+}

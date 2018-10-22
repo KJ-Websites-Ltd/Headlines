@@ -1,0 +1,39 @@
+{
+    "name":"electrolinux/php-html5lib"
+    ,"description": "A PHP implementations of a HTML parser based on the WHATWG HTML5 specification."
+    ,"version": "0.1.0"
+    ,"type":"library"
+    ,"keywords": [ "PHP", "HTML5" ]
+    ,"homepage": "https://github.com/electrolinux/php-html5lib"
+    ,"license": "MIT"
+    ,"authors": [
+        {
+            "name": "Multiple users"
+            ,"homepage": "https://code.google.com/p/html5lib/"
+            ,"role": "Original developers"
+        }
+        ,{
+            "name": "Sébastien Lavoie"
+            ,"homepage": "http://blog.lavoie.sl"
+            ,"role": "Packager"
+        }
+        ,{
+            "name": "didier Belot"
+            ,"role": "Packager"
+        }
+    ]
+    ,"require": {
+        "php":">=5.3.2"
+    }
+    ,"support": {
+        "email": "support@example.org"
+        ,"source": "https://code.google.com/p/html5lib"
+        ,"irc": "irc://irc.freenode.org/whatwg"
+    }
+    ,"autoload":{
+        "psr-0":{
+            "HTML5Lib":"src/"
+            ,"HTML5Lib\\Tests":"tests/"
+        }
+    }
+}
