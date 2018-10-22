@@ -17,3 +17,10 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+//application services
+$container['headlineServiceBase'] = function($c) {
+    return new Headline\Service\Base($c);
+};
+
+
