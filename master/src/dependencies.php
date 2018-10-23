@@ -53,9 +53,19 @@ $app->add(new Tuupola\Middleware\HttpBasicAuthentication([
 $container['headlineModelBase'] = function($c) {
     return new Headline\Model\Base($c);
 };
+$container['headlineModelItem'] = function($c) {
+    return new Headline\Model\Item($c);
+};
 
-
-
+$container['headlineModelContent'] = function($c) {
+    return new Headline\Model\Content($c);
+};
+$container['headlineModelTag'] = function($c) {
+    return new Headline\Model\Tag($c);
+};
+$container['headlineModelType'] = function($c) {
+    return new Headline\Model\Type($c);
+};
 
 
 //application services

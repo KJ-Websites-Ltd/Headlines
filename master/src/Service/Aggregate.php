@@ -10,11 +10,14 @@ class Aggregate extends Base
     const sourceCollection = ['gapi'];
     const sourceBaseName   = 'headlineServiceSource';
 
-    private $query;
     private $source;
-    private $result;
     private $graby;
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function getData()
     {
 
@@ -29,6 +32,11 @@ class Aggregate extends Base
 
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function getLongData()
     {
 
@@ -45,9 +53,9 @@ class Aggregate extends Base
                     $res[$i]['html']    = $longData['html'];
                     $res[$i]['summary'] = $longData['summary'];
 
-                    if (!empty($longContent['open_graph'])) {
-                        if (isset($longContent['open_graph']['og_image'])) {
-                            $res[$i]['image'] = $longContent['open_graph']['og_image'];
+                    if (!empty($longData['open_graph'])) {
+                        if (isset($longData['open_graph']['og_image'])) {
+                            $res[$i]['image'] = $longData['open_graph']['og_image'];
                         }
                     }
 
@@ -56,20 +64,55 @@ class Aggregate extends Base
             }
 
             $this->setResult($res);
+            $this->saveResult();
 
         }
 
     }
 
-    public function getQuery()
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function saveResult()
     {
-        return $this->query;
-    }
 
-    public function setQuery(string $query)
-    {
-        $this->query = trim(urlencode($query));
-        return $this;
+        $res = $this->getResult();
+        if (!empty($res)) {
+
+            foreach ($res as $item) {
+
+                $i               = [];
+                $i['title']      = $item['title'];
+                $i['created_at'] = $item['pubdate'];
+                $i['link']       = $item['link'];
+                $i['active']     = 1;
+
+                $html    = $item['html'];
+                $summary = $item['summary'];
+                $author  = $item['author'];
+                $image   = $item['image'];
+                $website = $item['website'];
+
+                $id = $this->getContainer()->get('headlineModelItem')->postSingle($i, 3);
+
+                if ($id > 0) {
+                    $this->getContainer()->get('headlineModelContent')->postSingle($html, 1, $id);
+                    $this->getContainer()->get('headlineModelContent')->postSingle($summary, 2, $id);
+                    $this->getContainer()->get('headlineModelContent')->postSingle($image, 3, $id);
+                    
+                    $this->getContainer()->get('headlineModelTag')->postMultiple(json_encode($author), 4, $id);
+                    $this->getContainer()->get('headlineModelTag')->postSingle($this->getQuery(), 5, $id);
+                    $this->getContainer()->get('headlineModelTag')->postSingle($website, 6, $id);
+
+                    $this->getContainer()->get('headlineModelType')->postItem2Type($id, 3);
+                }
+
+            }
+
+        }
+
     }
 
     public function getSource()
@@ -80,17 +123,6 @@ class Aggregate extends Base
     public function setSource(string $source)
     {
         $this->source = $source;
-        return $this;
-    }
-
-    public function getResult()
-    {
-        return $this->result;
-    }
-
-    public function setResult(array $result)
-    {
-        $this->result = $result;
         return $this;
     }
 
