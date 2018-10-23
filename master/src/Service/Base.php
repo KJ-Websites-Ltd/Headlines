@@ -3,13 +3,15 @@
 namespace Headline\Service;
 
 
+class Base extends \Headline\Base {
 
-class Base {
+
+    
 
 
-    public function __construct($container) {
-        
-        var_dump($container);
-    }
+    
+
+
+    
 
 }
