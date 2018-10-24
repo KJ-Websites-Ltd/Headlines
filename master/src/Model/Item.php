@@ -5,7 +5,7 @@ namespace Headline\Model;
 
 class Item extends Base {
 
-	const fields   = 'item.id, item.title, item.slug, item.author, item.created_at, item.updated_at, item.active, type.data AS type';
+	const fields   = 'item.id, item.title, item.slug, item.link, item.author, item.created_at, item.updated_at, item.active, type.data AS type';
 
 	/**
 	 * @brief get a single item by id

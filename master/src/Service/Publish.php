@@ -34,6 +34,8 @@ class Publish extends Base
 
         $data = $this->getContainer()->get('headlineModelType')->getItemCollection(3, $limit);
 
+        
+
         if (!empty($data)) {
             foreach ($data as $k => $v) {
                 $data[$k] = $this->generateFeaturesMultiple($v);
@@ -57,6 +59,7 @@ class Publish extends Base
     public function findMultipleByTag($limit=10, $query) {
 
         $data = $this->getContainer()->get('headlineModelTag')->getItemCollection($query);
+
         if (!empty($data)) {
             foreach ($data as $k => $v) {
                 $data[$k] = $this->generateFeaturesMultiple($v);

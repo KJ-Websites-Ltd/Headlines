@@ -288,7 +288,7 @@ class Tag extends Base {
 
 		$query = '
 			SELECT
-			item.id AS id, item.title as title, item.slug as slug, item.updated_at, item.active as active,
+			item.id AS id, item.title as title, item.slug as slug, item.updated_at, item.active as active, item.link as link,
 			tag.data AS tag,
 			type.data AS type
 			FROM tag
