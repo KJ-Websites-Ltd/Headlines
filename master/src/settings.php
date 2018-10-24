@@ -12,6 +12,9 @@ return [
             'template_path' => __DIR__ . '/../templates/',
         ],
 
+        //environment
+        'environment' => getenv('ENV'),
+
         // Monolog settings
         'logger'                 => [
             'name'  => 'slim-app',

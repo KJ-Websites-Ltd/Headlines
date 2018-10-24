@@ -4,14 +4,16 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 
+//front end
+$app->get('/[{q}]', '\Headline\Controller\Publish:getMultiple');
+$app->get('/item/[{q}]', '\Headline\Controller\Publish:getSingle');
 
-// Return data
-$app->get('/[{q}]', '\Headline\Controller\Api:getMultiple');
-$app->get('/item/[{q}]', '\Headline\Controller\Api:getSingle');
 
-
+// Return api data
+$app->get('/api/[{q}]', '\Headline\Controller\Api:getMultiple');
+$app->get('/api/item/[{q}]', '\Headline\Controller\Api:getSingle');
 
 // create data
-$app->get('/aggregate/[{q}]', '\Headline\Controller\Api:aggregateData');
+$app->get('/api/aggregate/[{q}]', '\Headline\Controller\Api:aggregateData');
 
 

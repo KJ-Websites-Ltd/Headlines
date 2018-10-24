@@ -106,9 +106,18 @@ class Aggregate extends Base
                     $this->getContainer()->get('headlineModelContent')->postSingle($summary, 2, $id);
                     $this->getContainer()->get('headlineModelContent')->postSingle($image, 3, $id);
 
-                    $this->getContainer()->get('headlineModelTag')->postMultiple(json_encode($author), 4, $id);
+                    if (is_array($author)) {
+                        $this->getContainer()->get('headlineModelTag')->postMultiple(json_encode($author), 4, $id);
+                    } else {
+                        $this->getContainer()->get('headlineModelTag')->postSingle($author, 4, $id);
+                    }
+                    
                     $this->getContainer()->get('headlineModelTag')->postSingle($this->getQuery(), 5, $id);
-                    $this->getContainer()->get('headlineModelTag')->postSingle($website, 6, $id);
+                    
+                    if (!empty($website)) {
+                        $this->getContainer()->get('headlineModelTag')->postSingle($website, 6, $id);
+                    }
+                    
 
                     $this->getContainer()->get('headlineModelType')->postItem2Type($id, 3);
                 }

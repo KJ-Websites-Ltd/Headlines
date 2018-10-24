@@ -4,15 +4,44 @@
 $container = $app->getContainer();
 
 // view renderer
-$container['renderer'] = function ($c) {
-    $settings = $c->get('settings')['renderer'];
-    return new Slim\Views\PhpRenderer($settings['template_path']);
+/*$container['renderer'] = function ($c) {
+$settings = $c->get('settings')['renderer'];
+return new Slim\Views\PhpRenderer($settings['template_path']);
+};*/
+
+// Register component on container
+$container['view'] = function ($c) {
+
+    switch ($c['settings']['environment']) {
+
+        case 'development':
+            $view = new \Slim\Views\Twig('../templates/', [
+                'cache' => false,
+                'debug' => true,
+            ]);
+            break;
+
+        default:
+            $view = new \Slim\Views\Twig('../templates/', [
+                'cache' => '../cache',
+                'debug' => false,
+            ]);
+            break;
+
+    }
+
+    // Instantiate and add Slim specific extension
+    $router = $c->get('router');
+    $uri    = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
+    $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
+
+    return $view;
 };
 
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings')['logger'];
-    $logger = new Monolog\Logger($settings['name']);
+    $logger   = new Monolog\Logger($settings['name']);
     $logger->pushProcessor(new Monolog\Processor\UidProcessor());
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
@@ -37,56 +66,55 @@ $container['db'] = function ($c) {
     return $pdo;
 };
 
-
 $app->add(new Tuupola\Middleware\HttpBasicAuthentication([
-    "path"   => "/admin",
-    "secure" => true,
+    "path"    => "/admin",
+    "secure"  => true,
     "relaxed" => ["localhost", "192.168.0.52"],
-    "users"  => [
+    "users"   => [
         "john"  => "sturgeon",
         "karen" => "pippin161071",
     ],
 ]));
 
-
 //application models
-$container['headlineModelBase'] = function($c) {
+$container['headlineModelBase'] = function ($c) {
     return new Headline\Model\Base($c);
 };
-$container['headlineModelItem'] = function($c) {
+$container['headlineModelItem'] = function ($c) {
     return new Headline\Model\Item($c);
 };
 
-$container['headlineModelContent'] = function($c) {
+$container['headlineModelContent'] = function ($c) {
     return new Headline\Model\Content($c);
 };
-$container['headlineModelTag'] = function($c) {
+$container['headlineModelTag'] = function ($c) {
     return new Headline\Model\Tag($c);
 };
-$container['headlineModelType'] = function($c) {
+$container['headlineModelType'] = function ($c) {
     return new Headline\Model\Type($c);
 };
 
-
 //application services
-$container['headlineServiceBase'] = function($c) {
+$container['headlineServiceBase'] = function ($c) {
     return new Headline\Service\Base($c);
 };
 
-$container['headlineServiceAggregate'] = function($c) {
+$container['headlineServiceAggregate'] = function ($c) {
     return new Headline\Service\Aggregate($c);
 };
 
-$container['headlineServicePublish'] = function($c) {
+$container['headlineServiceApi'] = function ($c) {
+    return new Headline\Service\Api($c);
+};
+
+$container['headlineServicePublish'] = function ($c) {
     return new Headline\Service\Publish($c);
 };
 
-
-
 //source services
-$container['headlineServiceSourceGapi'] = function($c) {
+$container['headlineServiceSourceGapi'] = function ($c) {
     return new Headline\Service\Source\Gapi($c);
 };
-$container['headlineServiceSourceNewsriver'] = function($c) {
+$container['headlineServiceSourceNewsriver'] = function ($c) {
     return new Headline\Service\Source\Newsriver($c);
 };
