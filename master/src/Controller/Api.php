@@ -24,7 +24,6 @@ class Api extends \Headline\Base
         $aggregatorService->setQuery($args['q']);
         $aggregatorService->getData();
         return $response->withJson($aggregatorService->getResult(), 200);
-
     }
 
     /**

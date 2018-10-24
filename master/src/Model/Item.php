@@ -78,8 +78,10 @@ class Item extends Base {
 			// do an insert
 
 			//create slug
+			if (empty($data['slug'])) {
+				$data['slug'] = $this->getSlugify()->slugify($data['title']);
+			}
 			
-			$data['slug'] = $this->getSlugify()->slugify($data['title']);
 			
 
 			if (!$this->checkDuplicateSlug($data)) {

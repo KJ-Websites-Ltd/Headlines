@@ -87,4 +87,6 @@ $container['headlineServicePublish'] = function($c) {
 $container['headlineServiceSourceGapi'] = function($c) {
     return new Headline\Service\Source\Gapi($c);
 };
-
+$container['headlineServiceSourceNewsriver'] = function($c) {
+    return new Headline\Service\Source\Newsriver($c);
+};

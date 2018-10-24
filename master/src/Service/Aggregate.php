@@ -7,7 +7,7 @@ use Graby\Graby;
 class Aggregate extends Base
 {
 
-    const sourceCollection = ['gapi'];
+    const sourceCollection = ['newsriver', 'gapi'];
     const sourceBaseName   = 'headlineServiceSource';
 
     private $source;
@@ -50,8 +50,12 @@ class Aggregate extends Base
 
                 if ((int) $longData['status'] === 200) {
 
-                    $res[$i]['html']    = $longData['html'];
-                    $res[$i]['summary'] = $longData['summary'];
+                    if (empty($res[$i]['html'])) {
+                        $res[$i]['html'] = $longData['html'];
+                    }
+                    if (empty($res[$i]['summary'])) {
+                        $res[$i]['summary'] = $longData['summary'];
+                    }
 
                     if (!empty($longData['open_graph'])) {
                         if (isset($longData['open_graph']['og_image'])) {
@@ -101,7 +105,7 @@ class Aggregate extends Base
                     $this->getContainer()->get('headlineModelContent')->postSingle($html, 1, $id);
                     $this->getContainer()->get('headlineModelContent')->postSingle($summary, 2, $id);
                     $this->getContainer()->get('headlineModelContent')->postSingle($image, 3, $id);
-                    
+
                     $this->getContainer()->get('headlineModelTag')->postMultiple(json_encode($author), 4, $id);
                     $this->getContainer()->get('headlineModelTag')->postSingle($this->getQuery(), 5, $id);
                     $this->getContainer()->get('headlineModelTag')->postSingle($website, 6, $id);
