@@ -42,7 +42,7 @@ class Publish extends \Headline\Base
         }
 
         return $this->getContainer()->view->render($response, 'index.html.twig', [
-            'data' => $publishService->getResult(),
+            'data' => $publishService->getResult()
         ]);
 
         //return $this->getContainer()->renderer->render($response, 'index.phtml', $args);
