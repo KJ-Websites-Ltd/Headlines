@@ -5,6 +5,7 @@ namespace Headline;
 
 class Base {
 
+
     private $container;
 
     public function __construct($container) {

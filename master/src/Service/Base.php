@@ -8,7 +8,10 @@ class Base extends \Headline\Base {
     private $query;
     private $result;
 
-
+    
+    public function getSingle(string $slug) {
+        return null;
+    }
 
     public function getQuery()
     {

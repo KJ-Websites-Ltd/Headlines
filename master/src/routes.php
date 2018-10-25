@@ -4,9 +4,6 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 
-//front end
-$app->get('/[{q}]', '\Headline\Controller\Publish:getMultiple');
-$app->get('/item/[{q}]', '\Headline\Controller\Publish:getSingle');
 
 
 // Return api data

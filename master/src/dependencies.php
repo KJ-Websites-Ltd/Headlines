@@ -10,7 +10,7 @@ return new Slim\Views\PhpRenderer($settings['template_path']);
 };*/
 
 // Register component on container
-$container['view'] = function ($c) {
+/*$container['view'] = function ($c) {
 
     switch ($c['settings']['environment']) {
 
@@ -36,7 +36,7 @@ $container['view'] = function ($c) {
     $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
 
     return $view;
-};
+};*/
 
 // monolog
 $container['logger'] = function ($c) {
@@ -66,6 +66,7 @@ $container['db'] = function ($c) {
     return $pdo;
 };
 
+/*
 $app->add(new Tuupola\Middleware\HttpBasicAuthentication([
     "path"    => "/admin",
     "secure"  => true,
@@ -75,6 +76,7 @@ $app->add(new Tuupola\Middleware\HttpBasicAuthentication([
         "karen" => "pippin161071",
     ],
 ]));
+*/
 
 //application models
 $container['headlineModelBase'] = function ($c) {
@@ -107,9 +109,7 @@ $container['headlineServiceApi'] = function ($c) {
     return new Headline\Service\Api($c);
 };
 
-$container['headlineServicePublish'] = function ($c) {
-    return new Headline\Service\Publish($c);
-};
+
 
 //source services
 $container['headlineServiceSourceGapi'] = function ($c) {
