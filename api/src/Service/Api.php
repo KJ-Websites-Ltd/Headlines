@@ -7,7 +7,7 @@ class Api extends Base
 
 
 
-    public function getSingle($slug) {
+    public function getSingle(string $slug) {
 
 
         $data = $this->getContainer()->get('headlineModelItem')->getSingleBySlug($slug, 3);
