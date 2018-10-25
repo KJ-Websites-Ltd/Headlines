@@ -16,16 +16,14 @@ class PageController extends AbstractController
     public function index($slug = 'home', CollectData $collectData)
     {   
 
+        $collectData->getMultiple();
+        $data = $collectData->getData();
 
-        $data = $collectData->test();
-       
 
-        return $this->json($collectData->test());
+        //return $this->json($collectData->getData());
 
-       //echo $collectData->test();
-
-        /*return $this->render('base.html.twig', [
-            'slug' => $slug,
-        ]);*/
+        return $this->render('base.html.twig', [
+            //'page' => $page,
+        ]);
     }
 }

@@ -4,30 +4,61 @@ namespace App\Service;
 
 use \GuzzleHttp\Client;
 
+class CollectData
+{
 
+    private $client;
+    private $data;
 
+    /**
+     * get multiple news items from the api based on tag query
+     *
+     * @param string $query
+     * @param integer $limit
+     *
+     * @return void
+     */
+    public function getMultiple(string $query = '', $limit = 10)
+    {
 
+        $response = $this->getClient()->request('GET', $query);
 
-class CollectData {
+        if ($response->getStatusCode() === 200) {
 
-    public function test() {
+            $body = $response->getBody();
+            $data = json_decode($body);
 
-        
-        $client = new Client([
-            'base_uri' => 'http://headlinesapi.kjwebsites.co.uk/api/'
-        ]);
-        
-        $response = $client->request('GET', 'trump');
+            $this->setData($data);
 
-        $body = $response->getBody();
-        $body = json_decode($body);
-
-        //echo $body;
-        
-
-        return $body;
+        }
 
     }
 
+    private function getClient()
+    {
+        if (empty($this->client)) {
+            $this->setClient();
+        }
+        return $this->client;
+    }
+
+    private function setClient()
+    {
+        $this->client = new Client([
+            'base_uri' => getenv('API_ENDPOINT'),
+        ]);
+        return $this;
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    private function setData(array $data)
+    {
+        $this->data = $data;
+        return $this;
+    }
 
 }
