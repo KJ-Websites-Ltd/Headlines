@@ -1,3 +1,0 @@
-title: //header[contains(concat(' ',normalize-space(@class),' '),' page-header ')]//h1
-body: //article
-test_url: https://www.wallabag.org/blog/2015/09/14/wallabag-v2-alpha-finally
