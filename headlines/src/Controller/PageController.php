@@ -4,7 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\CollectData;
+use App\Service\Data;
+use App\Service\Page;
 
 class PageController extends AbstractController
 {
@@ -13,17 +14,18 @@ class PageController extends AbstractController
      * 
      * @Route("/{slug}", name="page")
      */
-    public function index($slug = 'home', CollectData $collectData)
+    public function index($slug = 'home', Data $data, Page $page)
     {   
 
-        $collectData->getMultiple();
-        $data = $collectData->getData();
+        $page->getSingle($slug, 1);
+        $data->getMultiple();
 
-
-        //return $this->json($collectData->getData());
+        print_r($data->getResult());
+        
 
         return $this->render('base.html.twig', [
-            //'page' => $page,
+            'page' => $page->getResult(),
+            'data' => $data->getResult()
         ]);
     }
 }

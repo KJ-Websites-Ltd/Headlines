@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PageRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ItemRepository")
  */
 class Item
 {
@@ -29,14 +29,9 @@ class Item
     private $slug;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="boolean")
      */
     private $active;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $created_at;
 
     /**
      * @ORM\Column(type="integer")
@@ -44,9 +39,15 @@ class Item
     private $updated_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Content", inversedBy="items")
+     * @ORM\Column(type="integer")
      */
-    private $content;
+    private $created_at;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="items")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="items")
@@ -54,15 +55,14 @@ class Item
     private $tag;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Type", inversedBy="items")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Content")
      */
-    private $type;
+    private $content;
 
     public function __construct()
     {
-        $this->content = new ArrayCollection();
         $this->tag = new ArrayCollection();
-        $this->type = new ArrayCollection();
+        $this->content = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,26 +94,14 @@ class Item
         return $this;
     }
 
-    public function getActive(): ?int
+    public function getActive(): ?bool
     {
         return $this->active;
     }
 
-    public function setActive(int $active): self
+    public function setActive(bool $active): self
     {
         $this->active = $active;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?int
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(int $created_at): self
-    {
-        $this->created_at = $created_at;
 
         return $this;
     }
@@ -130,28 +118,26 @@ class Item
         return $this;
     }
 
-    /**
-     * @return Collection|Content[]
-     */
-    public function getContent(): Collection
+    public function getCreatedAt(): ?int
     {
-        return $this->content;
+        return $this->created_at;
     }
 
-    public function addContent(Content $content): self
+    public function setCreatedAt(int $created_at): self
     {
-        if (!$this->content->contains($content)) {
-            $this->content[] = $content;
-        }
+        $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function removeContent(Content $content): self
+    public function getType(): ?Type
     {
-        if ($this->content->contains($content)) {
-            $this->content->removeElement($content);
-        }
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
@@ -183,26 +169,26 @@ class Item
     }
 
     /**
-     * @return Collection|Type[]
+     * @return Collection|Content[]
      */
-    public function getType(): Collection
+    public function getContent(): Collection
     {
-        return $this->type;
+        return $this->content;
     }
 
-    public function addType(Type $type): self
+    public function addContent(Content $content): self
     {
-        if (!$this->type->contains($type)) {
-            $this->type[] = $type;
+        if (!$this->content->contains($content)) {
+            $this->content[] = $content;
         }
 
         return $this;
     }
 
-    public function removeType(Type $type): self
+    public function removeContent(Content $content): self
     {
-        if ($this->type->contains($type)) {
-            $this->type->removeElement($type);
+        if ($this->content->contains($content)) {
+            $this->content->removeElement($content);
         }
 
         return $this;

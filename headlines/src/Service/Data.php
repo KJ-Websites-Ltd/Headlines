@@ -4,11 +4,10 @@ namespace App\Service;
 
 use \GuzzleHttp\Client;
 
-class CollectData
+class Data extends Base
 {
 
     private $client;
-    private $data;
 
     /**
      * get multiple news items from the api based on tag query
@@ -26,14 +25,19 @@ class CollectData
         if ($response->getStatusCode() === 200) {
 
             $body = $response->getBody();
-            $data = json_decode($body);
+            $data = json_decode($body, true);
 
-            $this->setData($data);
+            $this->setResult($data);
 
         }
 
     }
 
+    /**
+     * get the guzzle client
+     *
+     * @return void
+     */
     private function getClient()
     {
         if (empty($this->client)) {
@@ -42,6 +46,11 @@ class CollectData
         return $this->client;
     }
 
+    /**
+     * set the guzzle client
+     *
+     * @return void
+     */
     private function setClient()
     {
         $this->client = new Client([
@@ -50,15 +59,6 @@ class CollectData
         return $this;
     }
 
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    private function setData(array $data)
-    {
-        $this->data = $data;
-        return $this;
-    }
+   
 
 }

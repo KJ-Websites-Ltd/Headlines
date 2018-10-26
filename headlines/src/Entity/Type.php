@@ -24,19 +24,35 @@ class Type
     private $data;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Item", mappedBy="type")
+     * @ORM\Column(type="integer")
      */
-    private $items;
+    private $updated_at;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $created_at;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="type")
      */
     private $tags;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Content", mappedBy="type")
+     */
+    private $contents;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="type")
+     */
+    private $items;
+
     public function __construct()
     {
-        $this->items = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->contents = new ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,30 +72,26 @@ class Type
         return $this;
     }
 
-    /**
-     * @return Collection|Item[]
-     */
-    public function getItems(): Collection
+    public function getUpdatedAt(): ?int
     {
-        return $this->items;
+        return $this->updated_at;
     }
 
-    public function addItem(Item $item): self
+    public function setUpdatedAt(int $updated_at): self
     {
-        if (!$this->items->contains($item)) {
-            $this->items[] = $item;
-            $item->addType($this);
-        }
+        $this->updated_at = $updated_at;
 
         return $this;
     }
 
-    public function removeItem(Item $item): self
+    public function getCreatedAt(): ?int
     {
-        if ($this->items->contains($item)) {
-            $this->items->removeElement($item);
-            $item->removeType($this);
-        }
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(int $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
@@ -109,6 +121,68 @@ class Type
             // set the owning side to null (unless already changed)
             if ($tag->getType() === $this) {
                 $tag->setType(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Content[]
+     */
+    public function getContents(): Collection
+    {
+        return $this->contents;
+    }
+
+    public function addContent(Content $content): self
+    {
+        if (!$this->contents->contains($content)) {
+            $this->contents[] = $content;
+            $content->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContent(Content $content): self
+    {
+        if ($this->contents->contains($content)) {
+            $this->contents->removeElement($content);
+            // set the owning side to null (unless already changed)
+            if ($content->getType() === $this) {
+                $content->setType(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(Item $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): self
+    {
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            // set the owning side to null (unless already changed)
+            if ($item->getType() === $this) {
+                $item->setType(null);
             }
         }
 

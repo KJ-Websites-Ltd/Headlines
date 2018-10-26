@@ -24,9 +24,10 @@ class Tag
     private $data;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="tags")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $created_at;
+    private $type;
 
     /**
      * @ORM\Column(type="integer")
@@ -34,15 +35,14 @@ class Tag
     private $updated_at;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $created_at;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Item", mappedBy="tag")
      */
     private $items;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="tags")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $type;
 
     public function __construct()
     {
@@ -66,14 +66,14 @@ class Tag
         return $this;
     }
 
-    public function getCreatedAt(): ?int
+    public function getType(): ?Type
     {
-        return $this->created_at;
+        return $this->type;
     }
 
-    public function setCreatedAt(int $created_at): self
+    public function setType(?Type $type): self
     {
-        $this->created_at = $created_at;
+        $this->type = $type;
 
         return $this;
     }
@@ -86,6 +86,18 @@ class Tag
     public function setUpdatedAt(int $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?int
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(int $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
@@ -114,18 +126,6 @@ class Tag
             $this->items->removeElement($item);
             $item->removeTag($this);
         }
-
-        return $this;
-    }
-
-    public function getType(): ?Type
-    {
-        return $this->type;
-    }
-
-    public function setType(?Type $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }

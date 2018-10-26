@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,14 +22,10 @@ class Content
     private $data;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="contents")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $tag_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $created_at;
+    private $type;
 
     /**
      * @ORM\Column(type="integer")
@@ -39,14 +33,9 @@ class Content
     private $updated_at;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Item", mappedBy="content")
+     * @ORM\Column(type="integer")
      */
-    private $items;
-
-    public function __construct()
-    {
-        $this->items = new ArrayCollection();
-    }
+    private $created_at;
 
     public function getId(): ?int
     {
@@ -65,26 +54,14 @@ class Content
         return $this;
     }
 
-    public function getTagId(): ?int
+    public function getType(): ?Type
     {
-        return $this->tag_id;
+        return $this->type;
     }
 
-    public function setTagId(int $tag_id): self
+    public function setType(?Type $type): self
     {
-        $this->tag_id = $tag_id;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?int
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(int $created_at): self
-    {
-        $this->created_at = $created_at;
+        $this->type = $type;
 
         return $this;
     }
@@ -101,30 +78,14 @@ class Content
         return $this;
     }
 
-    /**
-     * @return Collection|Item[]
-     */
-    public function getItems(): Collection
+    public function getCreatedAt(): ?int
     {
-        return $this->items;
+        return $this->created_at;
     }
 
-    public function addItem(Item $item): self
+    public function setCreatedAt(int $created_at): self
     {
-        if (!$this->items->contains($item)) {
-            $this->items[] = $item;
-            $item->addContent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeItem(Item $item): self
-    {
-        if ($this->items->contains($item)) {
-            $this->items->removeElement($item);
-            $item->removeContent($this);
-        }
+        $this->created_at = $created_at;
 
         return $this;
     }
