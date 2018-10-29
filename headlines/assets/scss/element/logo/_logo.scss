@@ -1,0 +1,6 @@
+.logo {
+    @extend .title;
+    @include reset-box;
+
+   
+}

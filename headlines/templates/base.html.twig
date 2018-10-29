@@ -1,16 +1,91 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{{page.title}}</title>
-        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
-    </head>
-    <body>
+<!doctype html>
+<html class="no-js" lang="en">
 
-        {% block body %}
-        
-        {% endblock %}
+    <html>
 
-        <script src="{{ asset('build/app.js') }}"></script>
-    </body>
-</html>
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="x-ua-compatible" content="ie=edge">
+            <title>{{page.title}}</title>
+            <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+            {#
+            <meta name="description" content="{{data.summary|striptags}}">#}
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            {#
+            <meta property="og:url" content="{{data.brand.url.data}}/{{data.type}}/{{data.slug}}" />#}
+            <meta property="og:type" content="article" />
+            {#
+            <meta property="og:title" content="{{data.title}}" />
+            <meta property="og:description" content="{{data.summary}}" />
+            <meta property="og:updated_time" content="{{data.updated_at|date()}}" />#}
+            {#{% if data.banner.url %}
+            <meta property="og:image" content="{{data.banner.url}}" />
+            {% endif %}#}
+            <meta name="twitter:card" content="summary" />
+            {#
+            <meta name="twitter:title" content="{{data.title}}" />
+            <meta name="twitter:description" content="{{data.summary}}" />#}
+            <meta name="twitter:creator" content="@kjwebsites" />
+            <meta name="p:domain_verify" content="116cb6741784e2fafa9255a6fe1b01dd" />
+            <link rel="dns-prefetch" href="//fonts.gstatic.com">
+            <link rel="dns-prefetch" href="//ajax.googleapis.com">
+            <link rel="dns-prefetch" href="//googletagmanager.com">
+            {#
+            <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+            <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+            <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+            <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+            <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+            <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+            <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+            <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+            <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">#}
+            <meta name="msapplication-TileColor" content="#000000">
+            <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+            <meta name="theme-color" content="#000000">
+            {#<script async src="https://www.googletagmanager.com/gtag/js?id=UA-114985288-1"></script>
+            <script src='https://www.google.com/recaptcha/api.js'></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+                gtag('js', new Date());
+                gtag('config', 'UA-114985288-1');
+
+            </script>#}
+        </head>
+
+        <body id="{{page.slug}}">
+
+            <main class="main" role="main">
+
+                <header class="header site" role="banner">
+                    {% include 'partials/logo/headlinez.html.twig' %}
+                    {% include 'partials/nav/header.html.twig' with {'slug' : page.slug} %}                    
+                </header>
+
+                {% block body %}
+
+                {% endblock %}
+
+                <footer class="footer site" role="contentinfo">
+                        {% include 'partials/logo/headlinez.html.twig' %}
+                        {% include 'partials/logo/tagline.html.twig' %}
+                        {% include 'partials/nav/footer.html.twig' with {'slug' : page.slug} %}   
+                </footer>
+
+            </main>
+
+
+            
+
+            <script src="{{ asset('build/app.js') }}"></script>
+        </body>
+
+    </html>

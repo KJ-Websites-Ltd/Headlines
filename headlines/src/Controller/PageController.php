@@ -18,10 +18,9 @@ class PageController extends AbstractController
     {   
 
         $page->getSingle($slug, 1);
-        $data->getMultiple();    
-        
+        $data->getMultiple();       
 
-        return $this->render('page/base.html.twig', [
+        return $this->render('page/home.html.twig', [
             'page' => $page->getResult(),
             'data' => $data->getResult()
         ]);

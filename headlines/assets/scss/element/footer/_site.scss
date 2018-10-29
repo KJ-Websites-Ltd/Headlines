@@ -1,0 +1,13 @@
+
+
+
+&.site {
+    padding: $measure;
+
+    .title {
+        @include reset-box;
+
+    }
+
+    
+}

@@ -1,0 +1,48 @@
+
+
+@mixin reset-box {
+
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+}
+
+
+@mixin absolute-fill {
+  position: absolute;
+  top: $zero;
+  left: $zero;
+  height: 100%;
+  width: 100%;
+}
+
+
+@mixin flex-center {
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+@mixin breakpoint($point) {
+   @if $point == large {
+     @media (min-width: $large) { @content ; }
+  }
+   @else if $point == desktop {
+     @media (min-width: $desktop) { @content ; }
+  }
+    @else if $point == tablet {
+     @media (min-width: $tablet) { @content ; }
+  }
+  @else if $point == phone {
+     @media (min-width: $phone)  { @content ; }
+  }
+
+  @else if $point==ie {
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            @content ;            
+        }
+    }
+}

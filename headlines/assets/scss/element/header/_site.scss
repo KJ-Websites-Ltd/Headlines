@@ -1,0 +1,39 @@
+
+
+
+&.site {
+
+    @include reset-box;
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    width: 100%;
+    box-sizing: border-box;
+    padding: ($measure / 2) $measure;
+    position: sticky;
+    top: $zero;
+    left: $zero;
+    background-color: rgba($white, 0.8);
+    border-bottom: 2px solid $black;
+    z-index: 100;
+
+    .logo {
+        font-size: ($measure * 3);
+    }
+
+   .nav {
+
+    @include reset-box;
+
+        a {
+
+            color: $black;
+            text-decoration: none;
+
+            &.hamburger {
+                @extend .material-icons;
+                font-size: ($measure * 3);
+            }
+        }
+   }
+
+}

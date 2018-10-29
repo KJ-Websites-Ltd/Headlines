@@ -1,0 +1,22 @@
+
+
+.footer {
+
+    @import 'site';
+
+    .nav {
+
+        display: flex;
+    
+
+        a {
+            text-transform: uppercase;
+            font-weight: $bold;
+            color: $black;
+            font-size: ($measure * 0.8);
+            margin-right: $measure;
+            
+            
+        }
+    }
+}

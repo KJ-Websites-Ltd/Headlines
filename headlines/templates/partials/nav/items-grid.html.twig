@@ -1,0 +1,23 @@
+<nav class="nav items grid">
+        {% for item in data %}
+
+            <a href="/item/{{item.slug}}"
+                {% if item.image is not empty %}
+                    class="item image"
+                {% else %}
+                    class="item"
+                {% endif %}
+            >
+                {% if item.image is not empty %}
+                    <div class="bg" style="background-image:url('{{item.image}}');"></div>
+                {% endif %}
+
+                <div class="text">
+                        <h4 class="title">{{item.title}}</h4>
+                        <h5 class="pubdate">{{item.updated_at|date('dS F Y H:i:s')}}</h5>
+                </div>
+                
+            </a>
+
+        {% endfor %}
+    </nav>
