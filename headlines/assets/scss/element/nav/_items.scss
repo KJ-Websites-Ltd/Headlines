@@ -29,8 +29,9 @@
 
             .pubdate {
                 @include reset-box;
-                @extend .title;
+                text-transform: uppercase;
                 font-size: $measure;
+                text-align: center;
             }
         }
 
@@ -47,6 +48,10 @@
             .title {
                 @include reset-box;
                 font-size: ($measure * 2);
+                text-align: left;
+            }
+
+            .pubdate {
                 text-align: left;
             }
 

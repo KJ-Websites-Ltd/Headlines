@@ -1,0 +1,97 @@
+&.item {
+
+    .header {
+        @include reset-box;
+        padding: ($screen-height / 2) $zero $zero $zero;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+
+
+        .text {
+            background: linear-gradient(rgba($black, 0), $black);
+            
+
+            .title {
+                @include reset-box;
+                color: $white;
+                font-size: ($measure * 2.6);
+                padding: $measure;
+            }
+
+            .summary, .pubdate {
+                color: $white;
+                padding: ($measure / 2) $measure;
+            }
+
+            .original {
+                a {
+                    @include flex-center;
+                    justify-content: flex-start;
+                    background-color: $red;
+                    color: $white;
+                    padding: $measure;
+                    font-size: ($measure * 1.2);
+                    text-decoration: none;
+
+                    &:hover {
+                        background-color: darken($red, 20);
+                    }
+
+                    &:before {
+                        @extend .material-icons;
+                        content: 'open_in_new';
+                        font-size: ($measure * 2);
+                        margin-right: $measure;
+                        
+                    }
+                    
+                }
+            }
+        }
+
+    }
+
+    .content {
+        padding: $measure;
+
+        img {
+            display: none;
+            
+        }
+    }
+
+
+    .footer {
+
+        padding: $measure $zero;
+        background-color: $black;
+        color: $white;
+
+        .original {
+            a {
+                @include flex-center;
+                justify-content: flex-start;
+                color: $white;
+                padding: $measure;
+                font-size: ($measure * 1.2);
+                text-decoration: none;
+
+                
+
+                &:before {
+                    @extend .material-icons;
+                    content: 'open_in_new';
+                    font-size: ($measure * 2);
+                    margin-right: $measure;
+                    
+                }
+                
+            }
+        }
+
+
+    }
+    
+}

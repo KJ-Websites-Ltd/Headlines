@@ -3,7 +3,8 @@
 
 .article {
 
-    padding: $measure;
+    
 
     @import 'introduction';
+    @import 'item';
 }

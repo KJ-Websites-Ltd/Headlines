@@ -6,7 +6,8 @@
     <article class="article item">
 
         <header class="header" style="background-image:url('{{page.image}}');">
-
+            
+            <div class="text">
             <h1 class="title">{{page.title}}</h1>
             <h2 class="summary">{{page.summary}}
                 {% for aut in page.author %}
@@ -15,9 +16,14 @@
             </h2>
             <h3 class="pubdate">{{page.updated_at|date('dS F Y H:i:s')}}</h3>
             <h3 class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></h3>
+            </div>
         </header>
 
-        {{page.html|raw}}
+
+        <div class="content">
+            {{page.html|raw}}
+        </div>
+        
 
         <footer class="footer">
             <h1>Originally posted by {{page.website}} on {{page.updated_at|date('dS F Y H:i:s')}}</h1>
