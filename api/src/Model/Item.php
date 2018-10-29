@@ -5,7 +5,7 @@ namespace Headline\Model;
 
 class Item extends Base {
 
-	const fields   = 'item.id, item.title, item.slug, item.link, item.author, item.created_at, item.updated_at, item.active, type.data AS type';
+	const fields   = 'item.id, item.title, item.slug, item.link, item.author, item.created_at, item.updated_at, item.active, type.data AS type, tag.data as tag';
 
 	/**
 	 * @brief get a single item by id
@@ -17,8 +17,16 @@ class Item extends Base {
 		$query = '
 			SELECT '.self::fields.'
 			FROM item 
+			
 			LEFT JOIN item_2_type ON item.id = item_2_type.item_id
 			LEFT JOIN type ON item_2_type.type_id = type.id
+			
+			LEFT JOIN item_2_tag ON item.id = item_2_tag.item_id
+			LEFT JOIN tag ON item_2_tag.tag_id = tag.id
+			LEFT JOIN tag_2_type ON tag.id = tag_2_type.tag_id
+
+			WHERE item.slug = :slug AND type.id = :type_id AND tag_2_type.type_id = 5
+			
 			WHERE item.id = :id
 			';
 		$params = ['id' => $id];
@@ -41,13 +49,19 @@ class Item extends Base {
 			FROM item 
 			LEFT JOIN item_2_type ON item.id = item_2_type.item_id
 			LEFT JOIN type ON item_2_type.type_id = type.id
-			WHERE item.slug = :slug AND type.id = :type_id
+
+			LEFT JOIN item_2_tag ON item.id = item_2_tag.item_id
+			LEFT JOIN tag ON item_2_tag.tag_id = tag.id
+			LEFT JOIN tag_2_type ON tag.id = tag_2_type.tag_id
+
+			WHERE item.slug = :slug AND type.id = :type_id AND tag_2_type.type_id = 5
 			';
 
 		$params = [
 			'slug' => $slug,
 			'type_id' => $type
 		];
+		
 
 		return $this->fetchOne($query, $params);
 		
@@ -134,6 +148,7 @@ class Item extends Base {
 		$res = true;
 
 		$data = $this->fetchOne($query, $params)['count'];
+	
 
 		if ($data > 0) {
 

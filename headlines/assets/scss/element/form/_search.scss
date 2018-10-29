@@ -1,0 +1,28 @@
+
+
+
+&.search {
+    
+    @include reset-box;
+
+    label {
+        @extend .screen-reader-text;
+    }
+
+    input[type=search] {
+        border: 2px solid $black;
+        font-size: $measure;
+        padding: ($measure / 2);
+        background-color: $black;
+        color: $white;
+       
+    }
+
+ 
+    input::placeholder {
+        color: $white;
+        opacity: 1;
+      }
+    
+
+}

@@ -6,7 +6,7 @@
         <head>
             <meta charset="utf-8">
             <meta http-equiv="x-ua-compatible" content="ie=edge">
-            <title>{{page.title}}</title>
+            <title>{{page.title}} | {{tag|capitalize}} | Headlines </title>
             <link rel="stylesheet" href="{{ asset('build/app.css') }}">
             {#
             <meta name="description" content="{{data.summary|striptags}}">#}
@@ -67,7 +67,7 @@
 
                 <header class="header site" role="banner">
                     {% include 'partials/logo/headlinez.html.twig' %}
-                    {% include 'partials/nav/header.html.twig' with {'slug' : page.slug} %}                    
+                    {% include 'partials/form/search.html.twig' %}                    
                 </header>
 
                 {% block body %}

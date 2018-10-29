@@ -21,7 +21,9 @@ class PageController extends AbstractController
         $data->getMultiple();       
 
         return $this->render('page/home.html.twig', [
+            'controller_name' => 'PageController',
             'page' => $page->getResult(),
+            'tag'  => 'latest stories',
             'data' => $data->getResult()
         ]);
     }
@@ -36,17 +38,23 @@ class PageController extends AbstractController
         $page->getSingle('tag', 1);
         $data->getMultiple($slug);
 
-
         if (empty($page->getResult())) {
             throw $this->createNotFoundException('The page does not exist');
         }
 
-        return $this->render('page/base.html.twig', [
+        return $this->render('page/tag.html.twig', [
+            'controller_name' => 'PageController',
             'page' => $page->getResult(),
+            'tag'  => $slug,
             'data' => $data->getResult()
         ]);
 
     } 
+
+
+    
+
+
 
 
     /**

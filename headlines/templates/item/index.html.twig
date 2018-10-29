@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <article class="article item">
+
+        <header class="header" style="background-image:url('{{page.image}}');">
+
+            <h1 class="title">{{page.title}}</h1>
+            <h2 class="summary">{{page.summary}}
+                {% for aut in page.author %}
+                <span>{{aut}}</span>
+                {% endfor %}
+            </h2>
+            <h3 class="pubdate">{{page.updated_at|date('dS F Y H:i:s')}}</h3>
+            <h3 class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></h3>
+        </header>
+
+        {{page.html|raw}}
+
+        <footer class="footer">
+            <h1>Originally posted by {{page.website}} on {{page.updated_at|date('dS F Y H:i:s')}}</h1>
+            <h2 class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></h2>
+            copyright information to say that we own none of this content
+        </footer>
+
+    </article>
+
+
+{% endblock %}

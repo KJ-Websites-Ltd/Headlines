@@ -27,7 +27,7 @@ class Base
      *
      * @return void
      */
-    public function getSingle($slug, $type)
+    public function getSingle(string $slug, $type)
     {
 
         $page = $this->getEm()->getRepository(Item::class)->findOneBySlugAndType($slug, $type);

@@ -11,6 +11,8 @@
 
     .item { 
 
+        @include flex-center;
+        flex-direction: column;
         position: relative;
         color: $black;
         text-decoration: none;
@@ -18,9 +20,11 @@
         .text {
             padding: $measure;
             
+            
             .title {
                 @include reset-box;
-                font-size: ($measure * 2);
+                font-size: ($measure * 2.4);
+                text-align: center;
             }
 
             .pubdate {
@@ -38,6 +42,12 @@
                 .bg {
                     opacity: 0.5;
                 }
+            }
+
+            .title {
+                @include reset-box;
+                font-size: ($measure * 2);
+                text-align: left;
             }
 
             .bg {

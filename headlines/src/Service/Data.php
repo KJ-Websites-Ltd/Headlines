@@ -9,6 +9,24 @@ class Data extends Base
 
     private $client;
 
+
+
+    public function getSingle(string $slug, $type) {
+
+        $response = $this->getClient()->request('GET', 'item/' . $slug);
+
+        
+        
+        if ($response->getStatusCode() === 200) {
+
+            $body = $response->getBody();
+            $data = json_decode($body, true);
+            $this->setResult($data);
+
+        }
+
+    }
+
     /**
      * get multiple news items from the api based on tag query
      *
@@ -26,6 +44,7 @@ class Data extends Base
 
             $body = $response->getBody();
             $data = json_decode($body, true);
+            
 
             $this->setResult($data);
 
