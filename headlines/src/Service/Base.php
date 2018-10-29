@@ -31,10 +31,13 @@ class Base
     {
 
         $page = $this->getEm()->getRepository(Item::class)->findOneBySlugAndType($slug, $type);
+        $res           = [];
+
+        if (!empty($page)) {
         $this->setSingleItem($page);
 
         //default data for all items
-        $res           = [];
+       
         $res['title']  = $page->getTitle();
         $res['slug']   = $page->getSlug();
         $res['active'] = $page->getActive();
@@ -52,6 +55,7 @@ class Base
                 $res[$type] = $d;
             }
         }
+    }
 
        $this->setResult($res);
 
@@ -72,27 +76,29 @@ class Base
      *
      * @return void
      */
-    public function createTestPage()
+    public function addSingle($data)
     {
 
         $em = $this->em;
 
         $page    = new Item();
         $content = new Content();
+        $pubDate = time();
+
 
         $pageType    = $em->getRepository(Type::class)->find(1);
         $contentType = $em->getRepository(Type::class)->find(2);
 
-        $content->setData('im the homepage content');
+        $content->setData($data['content']);
         $content->setCreatedAt(1);
         $content->setUpdatedAt(1);
         $content->setType($contentType);
 
-        $page->setTitle('homepage');
-        $page->setSlug('home');
+        $page->setTitle($data['title']);
+        //$page->setSlug('home');
         $page->setActive(1);
-        $page->setCreatedAt(1);
-        $page->setUpdatedAt(1);
+        $page->setCreatedAt($pubDate);
+        $page->setUpdatedAt($pubDate);
         $page->setType($pageType);
         $page->addContent($content);
 

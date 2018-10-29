@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "guzzlehttp/guzzle": "^6.3",
         "sensio/framework-extra-bundle": "^5.2",
+        "stof/doctrine-extensions-bundle": "^1.3",
         "symfony/apache-pack": "^1.0",
         "symfony/browser-kit": "*",
         "symfony/cache": "*",
@@ -19,12 +20,15 @@
         "symfony/security-csrf": "*",
         "symfony/serializer": "*",
         "symfony/twig-bundle": "*",
+        "symfony/var-dumper": "*",
         "symfony/webpack-encore-pack": "^1.0",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "twig/extensions": "^1.5"
     },
     "require-dev": {
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.8",
+        "symfony/profiler-pack": "^1.0",
         "symfony/web-server-bundle": "*"
     },
     "config": {
