@@ -116,15 +116,19 @@ class Tag extends Base {
 
 	private function createTag($tag) {
 
-		$query = 'INSERT INTO tag (data) VALUES (:data)';
-		$params = [
-			'data' => $tag,
-		];
+		if (!empty($tag)) {
+			$query = 'INSERT INTO tag (data) VALUES (:data)';
+			$params = [
+				'data' => $tag,
+			];
+	
+			$stmt = $this->postOne($query, $params);
+			$id = $stmt['id'];
+			
+			return $this->getDataByString($tag);
+		}
 
-		$stmt = $this->postOne($query, $params);
-		$id = $stmt['id'];
 		
-		return $this->getDataByString($tag);
 
 	}
 

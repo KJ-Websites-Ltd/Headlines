@@ -102,17 +102,27 @@ class Aggregate extends Base
                 $id = $this->getContainer()->get('headlineModelItem')->postSingle($i, 3);
 
                 if ($id > 0) {
-                    $this->getContainer()->get('headlineModelContent')->postSingle($html, 1, $id);
-                    $this->getContainer()->get('headlineModelContent')->postSingle($summary, 2, $id);
-                    $this->getContainer()->get('headlineModelContent')->postSingle($image, 3, $id);
+                    if (!empty($html)) {
+                        $this->getContainer()->get('headlineModelContent')->postSingle($html, 1, $id);
+                    }
+                    if (!empty($summary)) {
+                        $this->getContainer()->get('headlineModelContent')->postSingle($summary, 2, $id);
+                    }
+                    if (!empty($image)) {
+                        $this->getContainer()->get('headlineModelContent')->postSingle($image, 3, $id);
+                    }
+                    
 
                     if (is_array($author)) {
                         $this->getContainer()->get('headlineModelTag')->postMultiple(json_encode($author), 4, $id);
                     } else {
-                        $this->getContainer()->get('headlineModelTag')->postSingle($author, 4, $id);
+                        if (!empty($author)) {
+                            $this->getContainer()->get('headlineModelTag')->postSingle($author, 4, $id);
+                        }
+                        
                     }
                     
-                    $this->getContainer()->get('headlineModelTag')->postSingle($this->getQuery(), 5, $id);
+                    $this->getContainer()->get('headlineModelTag')->postSingle(urldecode($this->getQuery()), 5, $id);
                     
                     if (!empty($website)) {
                         $this->getContainer()->get('headlineModelTag')->postSingle($website, 6, $id);

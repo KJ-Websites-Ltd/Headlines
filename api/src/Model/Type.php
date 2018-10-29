@@ -25,7 +25,7 @@ class Type extends Base {
 			LEFT JOIN item on item_2_type.item_id = item.id
 
 			WHERE type.id = :type_id AND item.id > 0
-			GROUP BY item.updated_at
+			GROUP BY item.id
 			ORDER BY item.updated_at DESC
 
 			LIMIT 0, ' . $limit;
@@ -33,6 +33,7 @@ class Type extends Base {
 		$params = [
 			'type_id' => $typeId
 		];
+
  
 		return $this->fetchAll($query, $params);		
 

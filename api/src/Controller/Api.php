@@ -52,9 +52,9 @@ class Api extends \Headline\Base
         $apiService = $this->getContainer()->get('headlineServiceApi');
 
         if (empty($args['q'])) {
-            $apiService->getMultiple(100);
+            $apiService->getMultiple(24);
         } else {
-            $apiService->findMultipleByTag(100, $args['q']);
+            $apiService->findMultipleByTag(24, $args['q']);
         }
 
         return $response->withJson($apiService->getResult(), 200);

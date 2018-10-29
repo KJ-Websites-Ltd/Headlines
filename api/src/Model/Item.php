@@ -101,9 +101,14 @@ class Item extends Base {
 			if (!$this->checkDuplicateSlug($data)) {
 
 			unset($data['id']);
+
 			
-			$data['created_at'] = time();
-			$data['updated_at'] = time();
+			
+			$data['created_at'] = $data['created_at'];
+			$data['updated_at'] = $data['created_at'];
+
+			
+
 
 			$query = 'INSERT INTO item (';
 			foreach ($data AS $k => $v) {

@@ -23,9 +23,6 @@ class Newsriver extends \Headline\Base
         curl_close($ch);
         $res = [];
 
-        echo 'hello';
-        print_r($data);
-
         if (!empty($data)) {
 
             $data = json_decode($data, true);

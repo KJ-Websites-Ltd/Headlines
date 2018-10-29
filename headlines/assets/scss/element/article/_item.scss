@@ -55,11 +55,9 @@
 
     .content {
         padding: $measure;
-
-        img {
-            display: none;
-            
-        }
+        max-width: $max-width;
+        margin: $zero auto;
+       
     }
 
 
