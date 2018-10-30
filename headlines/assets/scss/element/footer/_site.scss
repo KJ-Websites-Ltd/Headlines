@@ -3,10 +3,28 @@
 
 &.site {
     padding: $measure;
+    text-align: center;
 
     .title {
         @include reset-box;
+    }
 
+    .nav {
+        @include max-width;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $measure $zero;
+
+        a {
+            text-transform: uppercase;
+            font-weight: $bold;
+            color: $black;
+            font-size: ($measure * 0.8);
+            margin: $zero $measure;
+            
+            
+        }
     }
 
     

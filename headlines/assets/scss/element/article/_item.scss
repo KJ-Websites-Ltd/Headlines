@@ -2,11 +2,16 @@
 
     .header {
         @include reset-box;
-        padding: ($screen-height / 2) $zero $zero $zero;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+        background-color: $black;
+
+
+        &.image {
+            padding: ($screen-height / 2) $zero $zero $zero;
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
 
 
         .text {
@@ -14,30 +19,42 @@
             
 
             .title {
-                @include reset-box;
+                @include max-width;
                 color: $white;
                 font-size: ($measure * 2.6);
                 padding: $measure;
+                
             }
 
             .summary, .pubdate {
+                @include max-width;
                 color: $white;
                 padding: ($measure / 2) $measure;
+                
+            }
+
+            .summary {
+                font-size: ($measure * 1.2);
             }
 
             .original {
+
+                background-color: $red;
+
+                &:hover {
+                    background-color: darken($red, 20);
+                }
+
                 a {
                     @include flex-center;
+                    @include max-width;
                     justify-content: flex-start;
-                    background-color: $red;
                     color: $white;
                     padding: $measure;
                     font-size: ($measure * 1.2);
                     text-decoration: none;
 
-                    &:hover {
-                        background-color: darken($red, 20);
-                    }
+                    
 
                     &:before {
                         @extend .material-icons;
@@ -57,26 +74,55 @@
         padding: $measure;
         max-width: $max-width;
         margin: $zero auto;
+
+        img {
+            display: block;
+            clear: both;
+            margin: $measure auto;
+        }
+
+        ul, ol {
+            li {
+                a, p, div, img {
+                    @include reset-box;
+                    display: inline;
+                    clear: none;
+
+                }
+            }
+        }
        
     }
 
 
     .footer {
-
+        
         padding: $measure $zero;
         background-color: $black;
         color: $white;
 
+        .title {
+            @include max-width;
+            padding: $zero $measure;
+            font-size: ($measure * 1.5);
+        
+        }
+
+        .copyright {
+            @include max-width;
+        }
+
         .original {
+            @include reset-box;
             a {
                 @include flex-center;
+                @include max-width;
                 justify-content: flex-start;
                 color: $white;
                 padding: $measure;
                 font-size: ($measure * 1.2);
                 text-decoration: none;
 
-                
 
                 &:before {
                     @extend .material-icons;

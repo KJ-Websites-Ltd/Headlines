@@ -5,22 +5,29 @@ namespace Headline\Service;
 class Api extends Base
 {
 
+    public function getSingle(string $slug)
+    {
 
+        $cacheName = 'api/get_single/' . $slug;
+        $cache     = $this->getCacheObject($cacheName);
+        $data      = $cache['res'];
 
-    public function getSingle(string $slug) {
+        if (!$data) {
 
+            $data = $this->getContainer()->get('headlineModelItem')->getSingleBySlug($slug, self::newsItemType);
 
-        $data = $this->getContainer()->get('headlineModelItem')->getSingleBySlug($slug, 3);
-        if (!empty($data)) {
-            $data = $this->generateFeatures($data);
+            if (empty($data)) {
+                $data = [];
+            } else {
+                $data = $this->generateFeatures($data);
+                $this->setCacheObject($data, $cache['cache']);
+            }
+
         }
 
         $this->setResult($data);
 
     }
-
-
-
 
     /**
      * Undocumented function
@@ -29,24 +36,33 @@ class Api extends Base
      *
      * @return void
      */
-    public function getMultiple($limit=10)
+    public function getMultiple($limit = 10)
     {
 
-        $data = $this->getContainer()->get('headlineModelType')->getItemCollection(3, $limit);
+        $cacheName = 'api/get_multiple/' . $limit;
+        $cache     = $this->getCacheObject($cacheName);
+        $data      = $cache['res'];
 
-        
+        if (!$data) {
 
-        if (!empty($data)) {
-            foreach ($data as $k => $v) {
-                $data[$k] = $this->generateFeaturesMultiple($v);
+            $data = $this->getContainer()->get('headlineModelType')->getItemCollection(self::newsItemType, $limit);
+
+            if (empty($data)) {
+                $data = [];
+            } else {
+                foreach ($data as $k => $v) {
+                    $data[$k] = $this->generateFeaturesMultiple($v);
+                }
+
+                $this->setCacheObject($data, $cache['cache']);
+
             }
+
         }
 
         $this->setResult($data);
 
-
     }
-
 
     /**
      * Undocumented function
@@ -56,21 +72,32 @@ class Api extends Base
      *
      * @return void
      */
-    public function findMultipleByTag($limit=10, $query) {
+    public function findMultipleByTag($limit = 10, $query)
+    {
+
+        $cacheName = 'api/find_multiple_by_tag/' . $limit . '/' . $query;
+        $cache     = $this->getCacheObject($cacheName);
+        $data      = $cache['res'];
+
+        if (!$data) {
 
         $data = $this->getContainer()->get('headlineModelTag')->getItemCollection($query);
 
-        if (!empty($data)) {
+        if (empty($data)) {
+            $data = [];
+        } else {
             foreach ($data as $k => $v) {
                 $data[$k] = $this->generateFeaturesMultiple($v);
             }
         }
 
+        $this->setCacheObject($data, $cache['cache']);
+
+        }
+
         $this->setResult($data);
 
-
     }
-
 
     /**
      * Undocumented function
@@ -83,15 +110,14 @@ class Api extends Base
     {
 
         $item['summary'] = $this->getSummaryContent($item['id']);
-        $item['html'] = $this->getHtmlContent($item['id']);
+        $item['html']    = $this->getHtmlContent($item['id']);
         $item['image']   = $this->getImageContent($item['id']);
-        $item['author']   = $this->getAuthorContent($item['id']);
-        $item['website']   = $this->getWebsiteContent($item['id']);
+        $item['author']  = $this->getAuthorContent($item['id']);
+        $item['website'] = $this->getWebsiteContent($item['id']);
 
         return $item;
 
     }
-
 
     /**
      * Undocumented function
@@ -106,7 +132,7 @@ class Api extends Base
         $item['summary'] = $this->getSummaryContent($item['id']);
         $item['image']   = $this->getImageContent($item['id']);
         //$item['author']   = $this->getAuthorContent($item['id']);
-        $item['website']   = $this->getWebsiteContent($item['id']);
+        $item['website'] = $this->getWebsiteContent($item['id']);
 
         return $item;
 
@@ -119,7 +145,7 @@ class Api extends Base
      */
     public function getHtmlContent($id)
     {
-        $res = $this->getContainer()->get('headlineModelContent')->getData($id, 1);
+        $res = $this->getContainer()->get('headlineModelContent')->getData($id, self::htmlType);
         return $res;
     }
 
@@ -130,7 +156,7 @@ class Api extends Base
      */
     public function getSummaryContent($id)
     {
-        $res = $this->getContainer()->get('headlineModelContent')->getData($id, 2);
+        $res = $this->getContainer()->get('headlineModelContent')->getData($id, self::summaryType);
 
         return $res;
     }
@@ -142,7 +168,7 @@ class Api extends Base
      */
     public function getImageContent($id)
     {
-        $res = $this->getContainer()->get('headlineModelContent')->getData($id, 3);
+        $res = $this->getContainer()->get('headlineModelContent')->getData($id, self::imageType);
 
         return $res;
     }
@@ -154,7 +180,7 @@ class Api extends Base
      */
     public function getAuthorContent($id)
     {
-        $res = $this->getContainer()->get('headlineModelTag')->getDataByItemAndType($id, 4);
+        $res = $this->getContainer()->get('headlineModelTag')->getDataByItemAndType($id, self::authorType);
 
         return $res;
     }
@@ -166,7 +192,7 @@ class Api extends Base
      */
     public function getWebsiteContent($id)
     {
-        $res = $this->getContainer()->get('headlineModelTag')->getDataByItemAndType($id, 6);
+        $res = $this->getContainer()->get('headlineModelTag')->getDataByItemAndType($id, self::websiteType);
         if (!empty($res)) {
             $res = reset($res);
         }

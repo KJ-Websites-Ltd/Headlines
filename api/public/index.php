@@ -37,5 +37,8 @@ require __DIR__ . '/../src/middleware.php';
 require __DIR__ . '/../src/routes.php';
 
 
+$app->add(new \Slim\HttpCache\Cache('public', 86400));
+
+
 // Run app
 $app->run();

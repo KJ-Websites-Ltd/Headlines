@@ -66,6 +66,19 @@ $container['db'] = function ($c) {
     return $pdo;
 };
 
+
+
+/**
+ * @brief [brief description]
+ * @details [long description]
+ * @return [description]
+ */
+$container['cache'] = function ($c) {
+    return new \Slim\HttpCache\CacheProvider();
+};
+
+
+
 /*
 $app->add(new Tuupola\Middleware\HttpBasicAuthentication([
     "path"    => "/admin",
@@ -108,8 +121,6 @@ $container['headlineServiceAggregate'] = function ($c) {
 $container['headlineServiceApi'] = function ($c) {
     return new Headline\Service\Api($c);
 };
-
-
 
 //source services
 $container['headlineServiceSourceGapi'] = function ($c) {

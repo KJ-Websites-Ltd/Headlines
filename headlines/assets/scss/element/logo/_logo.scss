@@ -1,6 +1,20 @@
 .logo {
     @extend .title;
     @include reset-box;
+    
+     a {
+         display: inline-block;
+         text-decoration: none;
+         color: $black;
+         padding: $zero $measure;
+         margin: $zero -$measure;
+         transition: background-color 1s $ease-out;
+
+         &:hover {
+             background-color: $black;
+             color: $white;
+         }
+     }
 
    
 }

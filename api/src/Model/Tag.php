@@ -305,7 +305,7 @@ class Tag extends Base {
 
 			WHERE tag.data = :tag_data
 			GROUP BY item.id
-			ORDER BY item.id
+			ORDER BY item.updated_at DESC
 		';
 
 		$params = [

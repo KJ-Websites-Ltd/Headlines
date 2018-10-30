@@ -9,6 +9,12 @@
 }
 
 
+@mixin max-width {
+  margin: $zero auto;
+  max-width: $max-width;
+}
+
+
 @mixin absolute-fill {
   position: absolute;
   top: $zero;

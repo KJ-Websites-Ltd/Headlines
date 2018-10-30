@@ -15,6 +15,9 @@ return [
         //environment
         'environment' => getenv('ENV'),
 
+        //disable cache
+        'disableCache' => false,
+
         // Monolog settings
         'logger'                 => [
             'name'  => 'slim-app',

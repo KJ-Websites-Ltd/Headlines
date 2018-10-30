@@ -9,6 +9,7 @@ class Aggregate extends Base
 
     const sourceCollection = ['newsriver', 'gapi'];
     const sourceBaseName   = 'headlineServiceSource';
+    
 
     private $source;
     private $graby;
@@ -99,38 +100,51 @@ class Aggregate extends Base
                 $image   = $item['image'];
                 $website = $item['website'];
 
-                $id = $this->getContainer()->get('headlineModelItem')->postSingle($i, 3);
+                $query = urldecode($this->getQuery());
+
+                //if the html doesnt include the query, then this is too general a piece of news
+                $process = false;
+                if (stripos($html, $query) !== false) {
+                    $process = true;
+                }
+
+
+                if ($process === true) {
+
+                $id = $this->getContainer()->get('headlineModelItem')->postSingle($i, self::newsItemType);
 
                 if ($id > 0) {
                     if (!empty($html)) {
-                        $this->getContainer()->get('headlineModelContent')->postSingle($html, 1, $id);
+                        $this->getContainer()->get('headlineModelContent')->postSingle($html, self::htmlType, $id);
                     }
                     if (!empty($summary)) {
-                        $this->getContainer()->get('headlineModelContent')->postSingle($summary, 2, $id);
+                        $this->getContainer()->get('headlineModelContent')->postSingle($summary, self::summaryType, $id);
                     }
                     if (!empty($image)) {
-                        $this->getContainer()->get('headlineModelContent')->postSingle($image, 3, $id);
+                        $this->getContainer()->get('headlineModelContent')->postSingle($image, self::imageType, $id);
                     }
                     
 
                     if (is_array($author)) {
-                        $this->getContainer()->get('headlineModelTag')->postMultiple(json_encode($author), 4, $id);
+                        $this->getContainer()->get('headlineModelTag')->postMultiple(json_encode($author), self::authorType, $id);
                     } else {
                         if (!empty($author)) {
-                            $this->getContainer()->get('headlineModelTag')->postSingle($author, 4, $id);
+                            $this->getContainer()->get('headlineModelTag')->postSingle($author, self::authorType, $id);
                         }
                         
                     }
                     
-                    $this->getContainer()->get('headlineModelTag')->postSingle(urldecode($this->getQuery()), 5, $id);
+                    $this->getContainer()->get('headlineModelTag')->postSingle($query, self::queryType, $id);
                     
                     if (!empty($website)) {
-                        $this->getContainer()->get('headlineModelTag')->postSingle($website, 6, $id);
+                        $this->getContainer()->get('headlineModelTag')->postSingle($website, self::websiteType, $id);
                     }
                     
 
-                    $this->getContainer()->get('headlineModelType')->postItem2Type($id, 3);
+                    $this->getContainer()->get('headlineModelType')->postItem2Type($id, self::newsItemType);
                 }
+
+            }
 
             }
 

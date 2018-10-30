@@ -5,7 +5,10 @@
 
     <article class="article item">
 
-        <header class="header" style="background-image:url('{{page.image}}');">
+        <header class="header
+        {% if page.image is not empty %}
+             image
+        {% endif %}" style="background-image:url('{{page.image}}');">
             
             <div class="text">
             <h1 class="title">{{page.title}}</h1>
@@ -15,20 +18,24 @@
                 {% endfor %}
             </h2>
             <h3 class="pubdate">{{page.updated_at|date('dS F Y H:i:s')}}</h3>
+            {% if page.html is not empty %}
             <h3 class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></h3>
+            {% endif %}
+            
             </div>
         </header>
 
-
+        {% if page.html is not empty %}
         <div class="content">
             {{page.html|raw}}
         </div>
+        {% endif %}
         
 
         <footer class="footer">
-            <h1>Originally posted by {{page.website}} on {{page.updated_at|date('dS F Y H:i:s')}}</h1>
-            <h2 class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></h2>
-            copyright information to say that we own none of this content
+            <h4 class="title">Originally posted by {{page.website}} on {{page.updated_at|date('dS F Y H:i:s')}}</h4>
+            <h4 class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></h4>
+            <p class="copyright">copyright information to say that we own none of this content</p>
         </footer>
 
     </article>

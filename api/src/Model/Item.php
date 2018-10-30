@@ -25,9 +25,9 @@ class Item extends Base {
 			LEFT JOIN tag ON item_2_tag.tag_id = tag.id
 			LEFT JOIN tag_2_type ON tag.id = tag_2_type.tag_id
 
-			WHERE item.slug = :slug AND type.id = :type_id AND tag_2_type.type_id = 5
+			WHERE tag_2_type.type_id = 5
 			
-			WHERE item.id = :id
+			AND item.id = :id
 			';
 		$params = ['id' => $id];
 
@@ -42,7 +42,7 @@ class Item extends Base {
 	 * @details [long description]
 	 * @return [description]
 	 */
-	public function getSingleBySlug($slug, $type) {
+	public function getSingleBySlug($slug, $typeId) {
 
 		$query = '
 			SELECT '.self::fields.'
@@ -59,7 +59,7 @@ class Item extends Base {
 
 		$params = [
 			'slug' => $slug,
-			'type_id' => $type
+			'type_id' => $typeId
 		];
 		
 

@@ -11,6 +11,6 @@ $app->get('/api/[{q}]', '\Headline\Controller\Api:getMultiple');
 $app->get('/api/item/[{q}]', '\Headline\Controller\Api:getSingle');
 
 // create data
-$app->get('/api/aggregate/[{q}]', '\Headline\Controller\Api:aggregateData');
+$app->get('/api/aggregate/[{q}]', '\Headline\Controller\Aggregate:setData');
 
 

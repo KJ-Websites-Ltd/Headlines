@@ -16,6 +16,7 @@
         position: relative;
         color: $black;
         text-decoration: none;
+        border: 1px solid $black;
 
         .text {
             padding: $measure;
@@ -38,6 +39,7 @@
         &.image {
             color: $white;
             background-color: $black;
+            border: none;
 
             &:hover {
                 .bg {

@@ -15,12 +15,20 @@
         padding: ($measure / 2);
         background-color: $black;
         color: $white;
+        transition: all 1s $ease-out;
+
+        &:focus {
+            background-color: $white;
+            color: $black;
+        }
        
     }
 
  
     input::placeholder {
         color: $white;
+        font-family: $heading;
+        text-transform: uppercase;
         opacity: 1;
       }
     
