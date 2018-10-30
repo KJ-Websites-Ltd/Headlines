@@ -9,6 +9,11 @@
         @include reset-box;
     }
 
+    .copyright {
+        @include max-width;
+        text-align: center;
+    }
+
     .nav {
         @include max-width;
         display: flex;
@@ -22,7 +27,6 @@
             color: $black;
             font-size: ($measure * 0.8);
             margin: $zero $measure;
-            
             
         }
     }

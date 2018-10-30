@@ -1,0 +1,10 @@
+
+
+
+&.site {
+
+    a {
+        @extend .title;
+        font-size: ($measure * 2);
+    }
+}

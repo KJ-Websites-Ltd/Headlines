@@ -58,5 +58,20 @@ class ItemRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function findOneByTitleAndType($title, $type): ?Item
+    {
+        return $this->createQueryBuilder('i')
+            
+            ->innerJoin('i.type', 't')
+            ->addSelect('t')
+            ->andWhere('i.title = :title')
+            ->andWhere('t.id = :type')
+            ->setParameter('title', $title)
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
     
 }

@@ -229,20 +229,17 @@ class Tag extends Base {
 	/**
 	 * return all tags by type
 	 */
-	public function getDataByType($type) {
+	public function getDataByType($typeId) {
 
 		$query = '
-			SELECT tag.id, tag.data AS tag, type.data AS type
-			FROM item_2_tag
-			LEFT JOIN tag ON item_2_tag.tag_id = tag.id
-			LEFT JOIN tag_2_type on tag.id = tag_2_type.tag_id
-			LEFT JOIN type on tag_2_type.type_id = type.id
-			WHERE type.data = :type
-			ORDER BY tag.data
+			SELECT tag.id, tag.data
+			FROM tag
+			LEFT JOIN tag_2_type ON tag.id = tag_2_type.tag_id
+			WHERE tag_2_type.type_id = :type_id
 		';
 
 		$params = [
-			'type' => $type,
+			'type_id' => $typeId,
 		];
 
 		return $this->fetchAll($query, $params);

@@ -1,0 +1,35 @@
+
+
+
+&.tags {
+
+    background-color: $black;
+    padding: $measure $zero;
+
+    ul {
+
+        @include max-width;
+        @include flex-center;
+        flex-wrap: wrap;
+
+        li {
+
+            a {
+                font-size: $measure;
+                font-family: $heading;
+                margin: $measure;
+                color: $white;
+                text-transform: uppercase;
+            }
+
+
+        }
+
+    }
+
+    
+
+
+    
+
+}

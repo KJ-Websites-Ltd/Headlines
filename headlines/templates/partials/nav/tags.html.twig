@@ -1,0 +1,10 @@
+
+
+
+<nav class="nav tags">
+    <ul>
+    {% for tag in data %}
+        <li><a href="/tag/{{tag|url_encode}}">{{tag|title}}</a></li>
+    {% endfor %}
+    </ul>
+</nav>

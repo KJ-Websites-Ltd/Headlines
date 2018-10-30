@@ -105,22 +105,26 @@
             @include max-width;
             padding: $zero $measure;
             font-size: ($measure * 1.5);
-        
+
         }
 
-        .copyright {
-            @include max-width;
-        }
+      
 
         .original {
             @include reset-box;
+            @include max-width;
+
+            strong {
+                @extend .title;
+            }
+            
             a {
                 @include flex-center;
                 @include max-width;
                 justify-content: flex-start;
                 color: $white;
                 padding: $measure;
-                font-size: ($measure * 1.2);
+                font-size: $measure;
                 text-decoration: none;
 
 

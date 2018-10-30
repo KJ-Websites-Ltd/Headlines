@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use \GuzzleHttp\Client;
+use \App\Service\Advert;
 
 class Data extends Base
 {
@@ -10,21 +11,60 @@ class Data extends Base
     private $client;
 
 
-
+    /**
+     * return a single news item by slug and type
+     *
+     * @param string $slug
+     * @param [type] $type
+     *
+     * @return void
+     */
     public function getSingle(string $slug, $type) {
 
         $response = $this->getClient()->request('GET', 'item/' . $slug);
-
-        
         
         if ($response->getStatusCode() === 200) {
 
             $body = $response->getBody();
             $data = json_decode($body, true);
+            $data['advert'] = $this->getAdvert($data['tag']);
             $this->setResult($data);
 
         }
 
+    }
+
+
+    public function getMultipleTag() {
+
+        $response = $this->getClient()->request('GET', 'tag/all');
+
+        if ($response->getStatusCode() === 200) {
+
+            $body = $response->getBody();
+            $data = json_decode($body, true);
+                        
+            $this->setResult($data);
+
+        }
+
+
+    }
+
+
+    private function getAdvert(string $tag) {
+
+        $advert = new Advert($this->getEm());
+        $advert->getSingleByTitle($tag);
+        $advert = $advert->getResult();
+        $res = null;
+
+        if (!empty($advert['data'])) {
+            $res = $advert['data'];
+        }
+    
+        return $res;
+       
     }
 
     /**

@@ -67,7 +67,8 @@
 
                 <header class="header site" role="banner">
                     {% include 'partials/logo/headlinez.html.twig' %}
-                    {% include 'partials/form/search.html.twig' %}                    
+                    {#{% include 'partials/form/search.html.twig' %}#}
+                    {% include 'partials/nav/site.html.twig' %}               
                 </header>
 
                 {% block body %}
@@ -75,9 +76,12 @@
                 {% endblock %}
 
                 <footer class="footer site" role="contentinfo">
+
                         {% include 'partials/logo/headlinez.html.twig' %}
                         {% include 'partials/logo/tagline.html.twig' %}
-                        {% include 'partials/nav/footer.html.twig' with {'slug' : page.slug} %}   
+                        {#{% include 'partials/nav/footer.html.twig' with {'slug' : page.slug} %} #}
+
+                        <p class="copyright">None of the content available on these news items are owned by us but by the respective creators or companies outlined in the large links and text. We accept no responsibility for the quality or reliability of any of this. These pages may contain links to websites, services or advertisements that we do not own or endorse. We comply with the DMC and if you wish to have any items taken down or removed then contact us via <a href="mailto:data@kjwebsites.co.uk">data@kjwebsites.co.uk</a> and it will be removed asap.</p>
                 </footer>
 
             </main>

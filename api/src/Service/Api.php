@@ -5,6 +5,13 @@ namespace Headline\Service;
 class Api extends Base
 {
 
+    /**
+     * return a single item
+     *
+     * @param string $slug
+     *
+     * @return void
+     */
     public function getSingle(string $slug)
     {
 
@@ -30,7 +37,7 @@ class Api extends Base
     }
 
     /**
-     * Undocumented function
+     * return multiple items
      *
      * @param integer $limit
      *
@@ -64,8 +71,35 @@ class Api extends Base
 
     }
 
+
     /**
-     * Undocumented function
+     * return an array of tags based on the type id provided
+     *
+     * @param string $query
+     * @param [type] $type
+     *
+     * @return void
+     */
+    public function getTag(string $query, $type) {
+
+        $data = $this->getContainer()->get('headlineModelTag')->getDataByType($type);
+        $res = [];
+        if (!empty($data)) {
+            foreach($data as $d) {
+                $res[] = $d['data'];
+            }
+        }
+
+
+        $this->setResult($res);
+
+    }
+
+
+
+
+    /**
+     * return multiple items by tag
      *
      * @param integer $limit
      * @param [type] $query
@@ -81,17 +115,17 @@ class Api extends Base
 
         if (!$data) {
 
-        $data = $this->getContainer()->get('headlineModelTag')->getItemCollection($query);
+            $data = $this->getContainer()->get('headlineModelTag')->getItemCollection($query);
 
-        if (empty($data)) {
-            $data = [];
-        } else {
-            foreach ($data as $k => $v) {
-                $data[$k] = $this->generateFeaturesMultiple($v);
+            if (empty($data)) {
+                $data = [];
+            } else {
+                foreach ($data as $k => $v) {
+                    $data[$k] = $this->generateFeaturesMultiple($v);
+                }
             }
-        }
 
-        $this->setCacheObject($data, $cache['cache']);
+            $this->setCacheObject($data, $cache['cache']);
 
         }
 
@@ -100,7 +134,7 @@ class Api extends Base
     }
 
     /**
-     * Undocumented function
+     * generate the features needed for a single item
      *
      * @param [type] $item
      *
@@ -120,7 +154,7 @@ class Api extends Base
     }
 
     /**
-     * Undocumented function
+     * return the features needed for multiple items
      *
      * @param [type] $item
      *
@@ -137,6 +171,8 @@ class Api extends Base
         return $item;
 
     }
+
+    
 
     /**
      * @brief return the html content for a item

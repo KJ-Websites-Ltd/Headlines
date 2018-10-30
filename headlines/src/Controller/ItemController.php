@@ -18,7 +18,6 @@ class ItemController extends AbstractController
         
         $data->getSingle($slug, null);
         $page = $data->getResult();
-
         
         
         return $this->render('item/index.html.twig', [

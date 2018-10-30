@@ -8,7 +8,7 @@ use Slim\Http\Response;
 class Api extends \Headline\Base
 {
 
-    
+    const multipleLimit = 24;
 
 
      /**
@@ -37,6 +37,35 @@ class Api extends \Headline\Base
 
     }
 
+
+    /**
+     * return an array of available  tags 
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param array $args
+     *
+     * @return void
+     */
+    public function getTag(Request $request, Response $response, array $args) {
+
+        $apiService = $this->getContainer()->get('headlineServiceApi');
+        $type = $args['t'];
+        if (empty($type)) {
+            $type =self::queryType;
+        }
+
+        $apiService->getTag($args['q'], $type);
+        
+
+        return $response->withJson($apiService->getResult(), 200);
+
+
+
+    }
+
+
+
     /**
      * return multiple items from the datastore based on a query or latest n number of items
      *
@@ -52,9 +81,9 @@ class Api extends \Headline\Base
         $apiService = $this->getContainer()->get('headlineServiceApi');
 
         if (empty($args['q'])) {
-            $apiService->getMultiple(24);
+            $apiService->getMultiple(self::multipleLimit);
         } else {
-            $apiService->findMultipleByTag(24, $args['q']);
+            $apiService->findMultipleByTag(self::multipleLimit, $args['q']);
         }
 
         return $response->withJson($apiService->getResult(), 200);

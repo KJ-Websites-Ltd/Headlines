@@ -1,5 +1,16 @@
+
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {% include 'partials/nav/items-grid.html.twig' with {'data' : data} %}
+
+   
+    <article class="article introduction" role="article">
+        {{page.content.html}}
+    </article>
+
+
+    {% include 'partials/nav/tags.html.twig' with {'data' : data} %}
+
+    
+
 {% endblock %}

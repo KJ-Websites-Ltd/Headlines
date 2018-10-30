@@ -23,6 +23,7 @@ class Page extends Base
             $content = $item->getContent();
             $tag     = $item->getTag();
 
+
             if (!empty($content)) {
                 foreach ($content as $c) {
                     $res['content'][$c->getType()->getData()] = $c->getData();
@@ -34,6 +35,7 @@ class Page extends Base
                     $res['tag'][$t->getType()->getData()] = $t->getData();
                 }
             }
+
 
         }
 

@@ -17,7 +17,6 @@ class Base
     public function __construct(EntityManagerInterface $em)
     {
         $this->setEm($em);
-
     }
 
     /**
@@ -76,10 +75,10 @@ class Base
      *
      * @return void
      */
-    public function addSingle($data)
+    public function addSingle($data, $flush=true)
     {
 
-        $em = $this->em;
+        $em = $this->getEm();
 
         $page    = new Item();
         $content = new Content();
@@ -104,8 +103,37 @@ class Base
 
         $em->persist($content);
         $em->persist($page);
-        $em->flush();
+        if ($flush) {
+            $em->flush();
+        }
+        
     
+
+    }
+
+
+
+    /**
+     * add multiple items
+     *
+     * @param [type] $data
+     *
+     * @return void
+     */
+    public function addMultiple($data) {
+
+        if (!empty($data)) {
+
+            $em = $this->getEm();
+
+            foreach($data as $d) {
+                $this->addSingle($d, false);
+            }
+
+            $em->flush();
+
+        }
+
 
     }
 

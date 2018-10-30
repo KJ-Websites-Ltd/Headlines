@@ -3,20 +3,40 @@
 
 &.items {
 
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: minmax(($measure * 20) , ($screen-height / 3));
-    align-items: stretch;
-    justify-content: stretch;
+    
+    @include breakpoint(tablet) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: minmax(($measure * 20) , ($screen-height / 3));
+        align-items: stretch;
+        justify-content: stretch;
+    }
+    
+
+    @include breakpoint(desktop) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: minmax(($measure * 20) , ($screen-height / 3));
+        align-items: stretch;
+        justify-content: stretch;
+    }
 
     .item { 
-
         @include flex-center;
         flex-direction: column;
         position: relative;
         color: $black;
         text-decoration: none;
-        border: 1px solid $black;
+        border-bottom: 1px solid $black;
+        display: block;
+        min-height: ($measure * 10);
+    
+
+
+        @include breakpoint(tablet) {
+            min-height: unset;
+            border: 1px solid $black;
+        }
 
         .text {
             padding: $measure;
@@ -24,15 +44,24 @@
             
             .title {
                 @include reset-box;
-                font-size: ($measure * 2.4);
-                text-align: center;
+                font-size: ($measure * 1.2);
+                text-align: left;
+
+                @include breakpoint(tablet) {
+                    font-size: ($measure * 2.4);
+                    text-align: center;
+                }
             }
 
             .pubdate {
                 @include reset-box;
                 text-transform: uppercase;
-                font-size: $measure;
+                font-size: ($measure * 0.8);
                 text-align: center;
+
+                @include breakpoint(desktop) {
+                    font-size: $measure;
+                }
             }
         }
 
@@ -49,8 +78,12 @@
 
             .title {
                 @include reset-box;
-                font-size: ($measure * 2);
+                font-size: ($measure * 1.4);
                 text-align: left;
+
+                @include breakpoint(desktop) {
+                    font-size: ($measure * 2);
+                }
             }
 
             .pubdate {
@@ -63,16 +96,28 @@
                 background-position: center center;
                 z-index: 1;
                 transition: opacity 0.5s $ease-out;
+                opacity: 0.5;
+
+
+                @include breakpoint(large) {
+                    opacity: 1;
+                }
     
             }
     
             .text {
-                background: linear-gradient(rgba($black, 0), $black);
-                position: absolute;
-                bottom: $zero;
-                left: $zero;
-                right: $zero;
+                
+                position: relative;
                 z-index: 2;
+               
+
+                @include breakpoint(tablet) {
+                    background: linear-gradient(rgba($black, 0), $black);
+                    position: absolute;
+                    bottom: $zero;
+                    left: $zero;
+                    right: $zero;
+                }
                 
             }
 

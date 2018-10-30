@@ -33,9 +33,10 @@
         
 
         <footer class="footer">
-            <h4 class="title">Originally posted by {{page.website}} on {{page.updated_at|date('dS F Y H:i:s')}}</h4>
-            <h4 class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></h4>
-            <p class="copyright">copyright information to say that we own none of this content</p>
+            <h1 class="title">{{page.advert|raw}}</h1>
+            <h2 class="original"><strong>Originally posted by {{page.website}} on {{page.updated_at|date('dS F Y H:i:s')}}</strong></h2>
+            <p class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></p>
+            
         </footer>
 
     </article>
