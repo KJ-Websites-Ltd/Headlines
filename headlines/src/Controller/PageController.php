@@ -21,21 +21,18 @@ class PageController extends AbstractController
 
         $page->getSingle($slug, 1);
        
-        if (!$page->checkBot()) {
-            $template = 'page/react.html.twig';
-        } else {
+        //if (!$page->checkBot()) {
+           // $template = 'page/react.html.twig';
+       // } else {
             $template = 'page/home.html.twig';
             $pageTemplate = 'page/'. $slug .'.html.twig';
             if ($this->get('twig')->getLoader()->exists($pageTemplate)) {
                 $template = $pageTemplate;
             }
-        }
-        
-        
-
+      //  }
+    
 
         switch($slug) {
-
 
             case 'home':
             $data->getMultiple();
@@ -46,9 +43,6 @@ class PageController extends AbstractController
             break;
 
         }
-
-        
-        
         
 
         return $this->render($template, [
@@ -67,7 +61,9 @@ class PageController extends AbstractController
     public function tagAction($slug='', Data $data, Page $page) {
 
         $page->getSingle('tag', 1);
-        $data->getMultiple($slug);
+        $data->getMultiple('0/50/' . $slug);
+        
+
 
         if (empty($page->getResult())) {
             throw $this->createNotFoundException('The page does not exist');
@@ -77,6 +73,7 @@ class PageController extends AbstractController
             'controller_name' => 'PageController',
             'page' => $page->getResult(),
             'tag'  => $slug,
+            'advert' => $data->getAdvert($slug),
             'data' => $data->getResult()
         ]);
 

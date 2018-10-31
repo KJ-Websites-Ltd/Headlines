@@ -1,5 +1,13 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+    
+{% if advert is not empty %}
+    <article class="article tag" role="article">
+        <h1 class="title">{{advert|raw}}</h1>
+    </article>
+{% endif %}
+    
+
     {% include 'partials/nav/items-grid.html.twig' with {'data' : data} %}
 {% endblock %}

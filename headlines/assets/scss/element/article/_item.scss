@@ -37,6 +37,22 @@
                 font-size: ($measure * 1.2);
             }
 
+            .link {
+                @include max-width;
+                text-transform: uppercase;
+                padding: $measure $zero;
+
+                a {
+                    display: block;
+                    background-color: $white;
+                    color: $black;
+                    text-decoration: none;
+                    padding: $measure;
+                    text-align: center;
+                    font-size: ($measure * 1.2);
+                }
+            }
+
             .original {
 
                 background-color: $red;
@@ -101,12 +117,7 @@
         background-color: $black;
         color: $white;
 
-        .title {
-            @include max-width;
-            padding: $zero $measure;
-            font-size: ($measure * 1.5);
-
-        }
+       
 
       
 

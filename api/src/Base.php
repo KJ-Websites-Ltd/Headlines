@@ -84,7 +84,6 @@ class Base {
         $res = null;
         $cache = null;
 
-
         if ($this->getDisableCache() !== true) {
 
 

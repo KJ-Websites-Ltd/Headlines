@@ -7,7 +7,8 @@ use Slim\Http\Response;
 
 
 // Return api data
-$app->get('/api/[{q}]', '\Headline\Controller\Api:getMultiple');
+$app->get('/api/', '\Headline\Controller\Api:getMultiple');
+$app->get('/api/{s}/{e}/[{q}]', '\Headline\Controller\Api:getMultiple');
 $app->get('/api/item/[{q}]', '\Headline\Controller\Api:getSingle');
 $app->get('/api/tag/[{q}]', '\Headline\Controller\Api:getTag');
 

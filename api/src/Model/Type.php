@@ -11,9 +11,10 @@ class Type extends Base {
 	 * @details [long description]
 	 * @return [description]
 	 */
-	public function getItemCollection($typeId, $limit=10) {
+	public function getItemCollection($typeId, $start=0, $end=10) {
 
-		$limit = (int) $limit;
+		$start = (int) $start;
+		$end = (int) $end;
 
 		$query = '
 			SELECT 
@@ -28,7 +29,7 @@ class Type extends Base {
 			GROUP BY item.id
 			ORDER BY item.updated_at DESC
 
-			LIMIT 0, ' . $limit;
+			LIMIT ' . $start . ', ' . $end;
 
 		$params = [
 			'type_id' => $typeId

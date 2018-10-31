@@ -52,7 +52,7 @@ class Data extends Base
     }
 
 
-    private function getAdvert(string $tag) {
+    public function getAdvert(string $tag) {
 
         $advert = new Advert($this->getEm());
         $advert->getSingleByTitle($tag);

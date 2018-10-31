@@ -18,6 +18,9 @@
                 {% endfor %}
             </h2>
             <h3 class="pubdate">{{page.updated_at|date('dS F Y H:i:s')}}</h3>
+
+            <h4 class="link">{{page.advert|raw}}</h4>
+
             {% if page.html is not empty %}
             <h3 class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></h3>
             {% endif %}
@@ -33,7 +36,6 @@
         
 
         <footer class="footer">
-            <h1 class="title">{{page.advert|raw}}</h1>
             <h2 class="original"><strong>Originally posted by {{page.website}} on {{page.updated_at|date('dS F Y H:i:s')}}</strong></h2>
             <p class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></p>
             

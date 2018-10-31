@@ -43,16 +43,16 @@ class Api extends Base
      *
      * @return void
      */
-    public function getMultiple($limit = 10)
+    public function getMultiple($start, $end)
     {
 
-        $cacheName = 'api/get_multiple/' . $limit;
+        $cacheName = 'api/get_multiple/' . $start . '/'. $end;
         $cache     = $this->getCacheObject($cacheName);
         $data      = $cache['res'];
 
         if (!$data) {
 
-            $data = $this->getContainer()->get('headlineModelType')->getItemCollection(self::newsItemType, $limit);
+            $data = $this->getContainer()->get('headlineModelType')->getItemCollection(self::newsItemType, $start, $end);
 
             if (empty($data)) {
                 $data = [];
@@ -116,16 +116,16 @@ class Api extends Base
      *
      * @return void
      */
-    public function findMultipleByTag($limit = 10, $query)
+    public function findMultipleByTag($start, $end,  $query)
     {
 
-        $cacheName = 'api/find_multiple_by_tag/' . $limit . '/' . $query;
+        $cacheName = 'api/find_multiple_by_tag/' . $start . '/'. $end . '/' . $query;
         $cache     = $this->getCacheObject($cacheName);
         $data      = $cache['res'];
 
         if (!$data) {
 
-            $data = $this->getContainer()->get('headlineModelTag')->getItemCollection($query);
+            $data = $this->getContainer()->get('headlineModelTag')->getItemCollection($start, $end, $query);
 
             if (empty($data)) {
                 $data = [];

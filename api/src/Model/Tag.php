@@ -281,11 +281,15 @@ class Tag extends Base {
 	}
 
 	/**
-	 * @brief get all items assigned to a tag by type
+	 * @brief get all items assigned to a tag 
 	 * @details [long description]
 	 * @return [description]
 	 */
-	public function getItemCollection($tag) {
+	public function getItemCollection($start, $end, $tag) {
+
+		$start = (int) $start;
+		$end = (int) $end;
+
 
 		$query = '
 			SELECT
@@ -294,16 +298,17 @@ class Tag extends Base {
 			type.data AS type
 			FROM tag
 
-			LEFT JOIN tag_2_type ON tag.id = tag_2_type.tag_id
-			LEFT JOIN type ON tag_2_type.type_id = type.id
-
-			LEFT JOIN item_2_tag on tag.id = item_2_tag.tag_id
+			LEFT JOIN item_2_tag ON item_2_tag.tag_id = tag.id
 			LEFT JOIN item on item_2_tag.item_id = item.id
+			LEFT JOIN tag_2_type on tag.id = tag_2_type.tag_id
+			LEFT JOIN type on tag_2_type.type_id = type.id
 
 			WHERE tag.data = :tag_data
 			GROUP BY item.id
 			ORDER BY item.updated_at DESC
-		';
+
+			LIMIT ' . $start . ', ' . $end;
+
 
 		$params = [
 			'tag_data' => $tag,

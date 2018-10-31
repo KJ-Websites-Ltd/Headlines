@@ -1,0 +1,27 @@
+
+
+&.tag {
+
+    .title {
+        @include reset-box;
+        font-size: ($measure * 1.2);
+
+        a {
+
+            @include flex-center;
+            justify-content: flex-start;
+            padding: $measure;
+            background-color: $black;
+            color: $white;
+            text-decoration: none;
+
+            &:before {
+                @extend .material-icons;
+                content: 'send';
+                margin-right: $measure;
+                font-size: ($measure * 2);
+            }
+        }
+    }
+
+}

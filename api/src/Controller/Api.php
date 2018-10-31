@@ -8,7 +8,8 @@ use Slim\Http\Response;
 class Api extends \Headline\Base
 {
 
-    const multipleLimit = 24;
+    const multipleStart = 0;
+    const multipleEnd = 24;
 
 
      /**
@@ -79,11 +80,21 @@ class Api extends \Headline\Base
     {
 
         $apiService = $this->getContainer()->get('headlineServiceApi');
+        $start = self::multipleStart;
+        $end = self::multipleEnd;
+
+        if (!empty($args['s'])) {
+            $start = (int)$args['s'];
+        }
+
+        if (!empty($args['e'])) {
+            $end = (int)$args['e'];
+        }
 
         if (empty($args['q'])) {
-            $apiService->getMultiple(self::multipleLimit);
+            $apiService->getMultiple($start, $end);
         } else {
-            $apiService->findMultipleByTag(self::multipleLimit, $args['q']);
+            $apiService->findMultipleByTag($start, $end, $args['q']);
         }
 
         return $response->withJson($apiService->getResult(), 200);
