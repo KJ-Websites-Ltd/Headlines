@@ -2,6 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
+        "symfony/dotenv": "*",
         "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
@@ -26,7 +27,7 @@
         "twig/extensions": "^1.5"
     },
     "require-dev": {
-        "symfony/dotenv": "*",
+        
         "symfony/maker-bundle": "^1.8",
         "symfony/profiler-pack": "^1.0",
         "symfony/web-server-bundle": "*"
