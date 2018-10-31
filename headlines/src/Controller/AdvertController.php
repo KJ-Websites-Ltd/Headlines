@@ -13,7 +13,7 @@ class AdvertController extends AbstractController
     /**
      * @Route("/advert", name="advert")
      */
-    public function index(Advert $advert)
+    public function advertAction(Advert $advert)
     {
 
 
@@ -24,7 +24,11 @@ class AdvertController extends AbstractController
         ]);
     }
 
-
+    /**
+     * setup the data to use for adverts, these will be updated to the db
+     *
+     * @return void
+     */
     private function getData() {
 
         $data = [

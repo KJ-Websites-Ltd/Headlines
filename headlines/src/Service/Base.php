@@ -3,6 +3,11 @@
 namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use DeviceDetector\DeviceDetector;
+use DeviceDetector\Parser\Device\DeviceParserAbstract;
+use DeviceDetector\Parser\Bot AS BotParser;
+use Symfony\Component\HttpFoundation\Request;
+
 use \App\Entity\Content;
 use \App\Entity\Item;
 use \App\Entity\Type;
@@ -13,11 +18,54 @@ class Base
     private $em;
     private $singleItem;
     private $result;
+    private $request;
 
     public function __construct(EntityManagerInterface $em)
     {
         $this->setEm($em);
+        $this->setRequest(Request::createFromGlobals());
     }
+
+    /**
+     * check if the current browser is a bot
+     *
+     * @return void
+     */
+    public function checkBot() {
+
+        $botParser = new BotParser();
+        $botParser->setUserAgent($this->getRequest()->headers->get('User-Agent'));
+        $botParser->discardDetails();
+        $result = $botParser->parse();
+
+        return $result;
+
+
+    }
+
+
+    /*public function checkDevice() {
+
+        DeviceParserAbstract::setVersionTruncation(DeviceParserAbstract::VERSION_TRUNCATION_NONE);
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        $dd = new DeviceDetector($userAgent);
+        $dd->parse();
+        
+        if ($dd->isBot()) {
+            // handle bots,spiders,crawlers,...
+            $botInfo = $dd->getBot();
+          } else {
+            $clientInfo = $dd->getClient(); // holds information about browser, feed reader, media player, ...
+            $osInfo = $dd->getOs();
+            $device = $dd->getDeviceName();
+            $brand = $dd->getBrandName();
+            $model = $dd->getModel();
+
+            print_r($clientInfo);
+          }
+
+    }*/
+
 
     /**
      * return a complete single page object as an array
@@ -177,6 +225,15 @@ class Base
 
     public function setResult(array $result) {
         $this->result = $result;
+        return $this;
+    }
+
+    public function getRequest() {
+        return $this->request;
+    }
+
+    public function setRequest($request) {
+        $this->request = $request;
         return $this;
     }
 

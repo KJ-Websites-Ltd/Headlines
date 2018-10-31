@@ -13,7 +13,7 @@ class ItemController extends AbstractController
      * Matches /item/* 
      * @Route("/item/{slug}", name="item")
      */
-    public function index($slug, Data $data)
+    public function itemAction($slug, Data $data)
     {
         
         $data->getSingle($slug, null);

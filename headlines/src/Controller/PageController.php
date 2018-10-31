@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+
+
 use App\Service\Data;
 use App\Service\Page;
 
@@ -14,13 +16,22 @@ class PageController extends AbstractController
      * 
      * @Route("/{slug}", name="page")
      */
-    public function index($slug = 'home', Data $data, Page $page)
+    public function pageAction($slug = 'home', Data $data, Page $page)
     {   
 
         $page->getSingle($slug, 1);
+       
+        if (!$page->checkBot()) {
+            $template = 'page/react.html.twig';
+        } else {
+            $template = 'page/home.html.twig';
+            $pageTemplate = 'page/'. $slug .'.html.twig';
+            if ($this->get('twig')->getLoader()->exists($pageTemplate)) {
+                $template = $pageTemplate;
+            }
+        }
         
-        $template = 'page/home.html.twig';
-        $pageTemplate = 'page/'. $slug .'.html.twig';
+        
 
 
         switch($slug) {
@@ -36,9 +47,7 @@ class PageController extends AbstractController
 
         }
 
-        if ($this->get('twig')->getLoader()->exists($pageTemplate)) {
-            $template = $pageTemplate;
-        }
+        
         
         
 
@@ -55,7 +64,7 @@ class PageController extends AbstractController
      * 
      * @Route("/tag/{slug}", name="tag")
      */
-    public function tag($slug='', Data $data, Page $page) {
+    public function tagAction($slug='', Data $data, Page $page) {
 
         $page->getSingle('tag', 1);
         $data->getMultiple($slug);
