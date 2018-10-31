@@ -3,6 +3,7 @@
 namespace Headline\Service;
 
 use Graby\Graby;
+use Headline\Service\Api;
 
 class Aggregate extends Base
 {
@@ -32,6 +33,26 @@ class Aggregate extends Base
         $this->getLongData();
 
     }
+
+    /**
+     * pick a random tag to aggregate data for, run this via a cron job
+     *
+     * @return void
+     */
+    public function pluckData() {
+
+        $api = new Api($this->getContainer());
+        $api->getTag('', self::queryType);
+        $tags = $api->getResult();
+        $randomKey = array_rand($tags);
+        $tag = $tags[$randomKey];
+
+        $this->setQuery($tag);
+        $this->getData();
+
+
+    }
+
 
     /**
      * Undocumented function

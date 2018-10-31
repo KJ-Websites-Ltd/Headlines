@@ -52,7 +52,7 @@ class Api extends \Headline\Base
         $apiService = $this->getContainer()->get('headlineServiceApi');
         $type = $args['t'];
         if (empty($type)) {
-            $type =self::queryType;
+            $type = self::queryType;
         }
 
         $apiService->getTag($args['q'], $type);

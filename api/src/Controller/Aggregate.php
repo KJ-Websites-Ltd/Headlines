@@ -23,8 +23,16 @@ class Aggregate extends \Headline\Base
     {
 
         $aggregatorService = $this->getContainer()->get('headlineServiceAggregate');
-        $aggregatorService->setQuery($args['q']);
-        $aggregatorService->getData();
+        $slug = $args['q'];
+
+        if (empty($slug)) {
+            $aggregatorService->pluckData();
+        } else {
+            $aggregatorService->setQuery($args['q']);
+            $aggregatorService->getData(); 
+        }
+
+               
         return $response->withJson($aggregatorService->getResult(), 200);
     }
 

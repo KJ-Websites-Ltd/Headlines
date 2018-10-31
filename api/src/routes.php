@@ -14,4 +14,3 @@ $app->get('/api/tag/[{q}]', '\Headline\Controller\Api:getTag');
 // create data
 $app->get('/api/aggregate/[{q}]', '\Headline\Controller\Aggregate:setData');
 
-

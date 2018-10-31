@@ -82,12 +82,22 @@ class Api extends Base
      */
     public function getTag(string $query, $type) {
 
+        $cacheName = 'api/get_tag/' . $query .'/'. $type;
+        $cache     = $this->getCacheObject($cacheName);
+        $data      = $cache['res'];
+
+        if (empty($data)) {
+
         $data = $this->getContainer()->get('headlineModelTag')->getDataByType($type);
         $res = [];
         if (!empty($data)) {
             foreach($data as $d) {
                 $res[] = $d['data'];
             }
+        }
+
+        $this->setCacheObject($data, $cache['cache']);
+
         }
 
 
