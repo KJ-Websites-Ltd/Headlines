@@ -6,10 +6,12 @@
     background-color: $black;
     padding: $measure $zero;
 
+
     ul {
 
         @include max-width;
         @include flex-center;
+        padding: $zero;
         flex-wrap: wrap;
 
         li {

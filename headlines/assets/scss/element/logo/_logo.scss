@@ -9,10 +9,22 @@
          padding: $zero $measure;
          margin: $zero -$measure;
          transition: background-color 1s $ease-out;
+         position: relative;
 
          &:hover {
              background-color: $black;
              color: $white;
+         }
+
+         &:after {
+             content: 'beta';
+             color: $white;
+             background-color: $red;
+             font-size:($measure * 0.8);
+             padding: ($measure / 3);
+             position: absolute;
+             left: 95%;
+             top: $zero;
          }
      }
 

@@ -3,6 +3,7 @@
 
 &.items {
 
+
     
     @include breakpoint(tablet) {
         display: grid;
@@ -30,6 +31,7 @@
         border-bottom: 1px solid $black;
         display: block;
         min-height: ($measure * 10);
+        overflow: hidden;
     
 
 
@@ -41,10 +43,9 @@
         .text {
             padding: $measure;
             
-            
             .title {
                 @include reset-box;
-                font-size: ($measure * 1.2);
+                font-size: ($measure * 1.4);
                 text-align: left;
 
                 @include breakpoint(tablet) {
@@ -57,10 +58,14 @@
                 @include reset-box;
                 text-transform: uppercase;
                 font-size: ($measure * 0.8);
-                text-align: center;
+                
+                @include breakpoint(tablet) {
+                    text-align: center;
+                }
 
                 @include breakpoint(desktop) {
                     font-size: $measure;
+
                 }
             }
         }
@@ -68,7 +73,11 @@
         &.image {
             color: $white;
             background-color: $black;
-            border: none;
+            
+
+            @include breakpoint(tablet) {
+                border: none;
+            }
 
             &:hover {
                 .bg {
@@ -99,7 +108,7 @@
                 opacity: 0.5;
 
 
-                @include breakpoint(large) {
+                @include breakpoint(tablet) {
                     opacity: 1;
                 }
     

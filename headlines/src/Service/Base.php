@@ -2,12 +2,10 @@
 
 namespace App\Service;
 
+use DeviceDetector\Parser\Bot as BotParser;
 use Doctrine\ORM\EntityManagerInterface;
-use DeviceDetector\DeviceDetector;
-use DeviceDetector\Parser\Device\DeviceParserAbstract;
-use DeviceDetector\Parser\Bot AS BotParser;
+use Symfony\Component\Cache\Simple\FilesystemCache;
 use Symfony\Component\HttpFoundation\Request;
-
 use \App\Entity\Content;
 use \App\Entity\Item;
 use \App\Entity\Type;
@@ -19,11 +17,13 @@ class Base
     private $singleItem;
     private $result;
     private $request;
+    private $cache;
 
     public function __construct(EntityManagerInterface $em)
     {
         $this->setEm($em);
         $this->setRequest(Request::createFromGlobals());
+
     }
 
     /**
@@ -31,7 +31,8 @@ class Base
      *
      * @return void
      */
-    public function checkBot() {
+    public function checkBot()
+    {
 
         $botParser = new BotParser();
         $botParser->setUserAgent($this->getRequest()->headers->get('User-Agent'));
@@ -40,32 +41,29 @@ class Base
 
         return $result;
 
-
     }
-
 
     /*public function checkDevice() {
 
-        DeviceParserAbstract::setVersionTruncation(DeviceParserAbstract::VERSION_TRUNCATION_NONE);
-        $userAgent = $_SERVER['HTTP_USER_AGENT'];
-        $dd = new DeviceDetector($userAgent);
-        $dd->parse();
-        
-        if ($dd->isBot()) {
-            // handle bots,spiders,crawlers,...
-            $botInfo = $dd->getBot();
-          } else {
-            $clientInfo = $dd->getClient(); // holds information about browser, feed reader, media player, ...
-            $osInfo = $dd->getOs();
-            $device = $dd->getDeviceName();
-            $brand = $dd->getBrandName();
-            $model = $dd->getModel();
+    DeviceParserAbstract::setVersionTruncation(DeviceParserAbstract::VERSION_TRUNCATION_NONE);
+    $userAgent = $_SERVER['HTTP_USER_AGENT'];
+    $dd = new DeviceDetector($userAgent);
+    $dd->parse();
 
-            print_r($clientInfo);
-          }
+    if ($dd->isBot()) {
+    // handle bots,spiders,crawlers,...
+    $botInfo = $dd->getBot();
+    } else {
+    $clientInfo = $dd->getClient(); // holds information about browser, feed reader, media player, ...
+    $osInfo = $dd->getOs();
+    $device = $dd->getDeviceName();
+    $brand = $dd->getBrandName();
+    $model = $dd->getModel();
+
+    print_r($clientInfo);
+    }
 
     }*/
-
 
     /**
      * return a complete single page object as an array
@@ -77,34 +75,44 @@ class Base
     public function getSingle(string $slug, $type)
     {
 
-        $page = $this->getEm()->getRepository(Item::class)->findOneBySlugAndType($slug, $type);
-        $res           = [];
+        $cacheName = 'base.get_single_' . urlencode($slug) . '_' . $type;
+        $res       = $this->getCache()->get($cacheName);
 
-        if (!empty($page)) {
-        $this->setSingleItem($page);
+        if (!$res) {
 
-        //default data for all items
-       
-        $res['title']  = $page->getTitle();
-        $res['slug']   = $page->getSlug();
-        $res['active'] = $page->getActive();
+            $page = $this->getEm()->getRepository(Item::class)->findOneBySlugAndType($slug, $type);
+            $res  = [];
 
-        $res['created_at'] = new \DateTime();
-        $res['created_at']->setTimestamp($page->getCreatedAt());
+            if (!empty($page)) {
+                $this->setSingleItem($page);
 
-        $res['updated_at'] = new \DateTime();
-        $res['updated_at']->setTimestamp($page->getCreatedAt());
+                //default data for all items
 
-        $data = $this->generateData();
+                $res['title']  = $page->getTitle();
+                $res['slug']   = $page->getSlug();
+                $res['active'] = $page->getActive();
 
-        if (!empty($data)) {
-            foreach ($data as $type => $d) {
-                $res[$type] = $d;
+                $res['created_at'] = new \DateTime();
+                $res['created_at']->setTimestamp($page->getCreatedAt());
+
+                $res['updated_at'] = new \DateTime();
+                $res['updated_at']->setTimestamp($page->getCreatedAt());
+
+                $data = $this->generateData();
+
+                if (!empty($data)) {
+                    foreach ($data as $type => $d) {
+                        $res[$type] = $d;
+                    }
+                }
+
+                $this->getCache()->set($cacheName, $res);
+
             }
-        }
-    }
 
-       $this->setResult($res);
+        }
+
+        $this->setResult($res);
 
     }
 
@@ -123,7 +131,7 @@ class Base
      *
      * @return void
      */
-    public function addSingle($data, $flush=true)
+    public function addSingle($data, $flush = true)
     {
 
         $em = $this->getEm();
@@ -131,7 +139,6 @@ class Base
         $page    = new Item();
         $content = new Content();
         $pubDate = time();
-
 
         $pageType    = $em->getRepository(Type::class)->find(1);
         $contentType = $em->getRepository(Type::class)->find(2);
@@ -154,12 +161,8 @@ class Base
         if ($flush) {
             $em->flush();
         }
-        
-    
 
     }
-
-
 
     /**
      * add multiple items
@@ -168,20 +171,20 @@ class Base
      *
      * @return void
      */
-    public function addMultiple($data) {
+    public function addMultiple($data)
+    {
 
         if (!empty($data)) {
 
             $em = $this->getEm();
 
-            foreach($data as $d) {
+            foreach ($data as $d) {
                 $this->addSingle($d, false);
             }
 
             $em->flush();
 
         }
-
 
     }
 
@@ -219,21 +222,39 @@ class Base
         return $this;
     }
 
-    public function getResult() {
+    public function getResult()
+    {
         return $this->result;
     }
 
-    public function setResult(array $result) {
+    public function setResult(array $result)
+    {
         $this->result = $result;
         return $this;
     }
 
-    public function getRequest() {
+    public function getRequest()
+    {
         return $this->request;
     }
 
-    public function setRequest($request) {
+    public function setRequest($request)
+    {
         $this->request = $request;
+        return $this;
+    }
+
+    public function getCache()
+    {
+        if (empty($this->cache)) {
+            $this->setCache(new FilesystemCache());
+        }
+        return $this->cache;
+    }
+
+    public function setCache(FilesystemCache $cache)
+    {
+        $this->cache = $cache;
         return $this;
     }
 

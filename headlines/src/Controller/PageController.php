@@ -61,7 +61,7 @@ class PageController extends AbstractController
     public function tagAction($slug='', Data $data, Page $page) {
 
         $page->getSingle('tag', 1);
-        $data->getMultiple('0/50/' . $slug);
+        $data->getMultiple('0/100/' . $slug);
         
 
 

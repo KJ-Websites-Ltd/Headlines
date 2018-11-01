@@ -13,6 +13,7 @@
     .copyright {
         @include max-width;
         text-align: center;
+        padding: $measure $zero;
     }
 
     .nav {

@@ -2,14 +2,13 @@
 
 namespace App\Service;
 
-use \GuzzleHttp\Client;
 use \App\Service\Advert;
+use \GuzzleHttp\Client;
 
 class Data extends Base
 {
 
     private $client;
-
 
     /**
      * return a single news item by slug and type
@@ -19,52 +18,91 @@ class Data extends Base
      *
      * @return void
      */
-    public function getSingle(string $slug, $type) {
+    public function getSingle(string $slug, $type)
+    {
+
+        $cacheName = 'data.get_single_' . urlencode($slug) . '_' .$type;
+        $res       = $this->getCache()->get($cacheName);
+
+        if (!$res) {
 
         $response = $this->getClient()->request('GET', 'item/' . $slug);
-        
-        if ($response->getStatusCode() === 200) {
-
-            $body = $response->getBody();
-            $data = json_decode($body, true);
-            $data['advert'] = $this->getAdvert($data['tag']);
-            $this->setResult($data);
-
-        }
-
-    }
-
-
-    public function getMultipleTag() {
-
-        $response = $this->getClient()->request('GET', 'tag/all');
 
         if ($response->getStatusCode() === 200) {
 
-            $body = $response->getBody();
-            $data = json_decode($body, true);
-                        
-            $this->setResult($data);
+            $body          = $response->getBody();
+            $res           = json_decode($body, true);
+            $res['advert'] = $this->getAdvert($res['tag']);
+            
+            $this->getCache()->set($cacheName, $res);
 
         }
 
+        }
+
+        $this->setResult($res);
 
     }
 
+    /**
+     * get multiple tags from the api
+     *
+     * @return void
+     */
+    public function getMultipleTag()
+    {
 
-    public function getAdvert(string $tag) {
+        $cacheName = 'data.get_multiple_tag';
+        $res       = $this->getCache()->get($cacheName);
+
+        if (!$res) {
+
+            $response = $this->getClient()->request('GET', 'tag/all');
+
+            if ($response->getStatusCode() === 200) {
+
+                $body = $response->getBody();
+                $res  = json_decode($body, true);
+
+                $this->getCache()->set($cacheName, $res);
+
+            }
+
+        }
+
+        $this->setResult($res);
+
+    }
+
+    /**
+     * get an advert text from the db
+     *
+     * @param string $tag
+     *
+     * @return void
+     */
+    public function getAdvert(string $tag)
+    {
+
+        $cacheName = 'data.get_advert_' .$tag;
+        $res       = $this->getCache()->get($cacheName);
+
+        if (!$res) {
 
         $advert = new Advert($this->getEm());
         $advert->getSingleByTitle($tag);
         $advert = $advert->getResult();
-        $res = null;
+        $res    = null;
 
         if (!empty($advert['data'])) {
             $res = $advert['data'];
+            $this->getCache()->set($cacheName, $res);
         }
-    
+
+        }
+
         return $res;
-       
+
     }
 
     /**
@@ -78,17 +116,25 @@ class Data extends Base
     public function getMultiple(string $query = '', $limit = 10)
     {
 
-        $response = $this->getClient()->request('GET', $query);
+        $cacheName = 'data.get_multiple_' . urlencode($query) . $limit;
+        $res       = $this->getCache()->get($cacheName);
 
-        if ($response->getStatusCode() === 200) {
+        if (!$res) {
 
-            $body = $response->getBody();
-            $data = json_decode($body, true);
-            
+            $response = $this->getClient()->request('GET', $query);
 
-            $this->setResult($data);
+            if ($response->getStatusCode() === 200) {
+
+                $body = $response->getBody();
+                $res  = json_decode($body, true);
+
+                $this->getCache()->set($cacheName, $res);
+
+            }
 
         }
+
+        $this->setResult($res);
 
     }
 
@@ -117,7 +163,5 @@ class Data extends Base
         ]);
         return $this;
     }
-
-   
 
 }
