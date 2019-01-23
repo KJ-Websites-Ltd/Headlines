@@ -6,10 +6,16 @@
         <head>
             <meta charset="utf-8">
             <meta http-equiv="x-ua-compatible" content="ie=edge">
-            <title>{{page.title}} | {{tag|capitalize}} | Headlines </title>
+            <title>
+                {%  if page.slug != 'home' %}
+                    {{page.title}} |
+                {%  endif  %}
+                {{tag|capitalize}} | Headlines </title>
             <link rel="stylesheet" href="{{ asset('build/app.css') }}">
-            {#
-            <meta name="description" content="{{data.summary|striptags}}">#}
+            {%  if data.summary != ''  %}
+                <meta name="description" content="{{data.summary|striptags}}">
+            {%  endif  %}
+
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
             {#
             <meta property="og:url" content="{{data.brand.url.data}}/{{data.type}}/{{data.slug}}" />#}
