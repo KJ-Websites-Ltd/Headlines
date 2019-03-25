@@ -4,8 +4,8 @@ namespace Headline\Service\Source;
 
 class Gapi extends \Headline\Base
 {
-
-    const uri = 'https://gapi.xyz/api/V1/?lang=en&q=';
+    
+    const uri = 'https://gapi.xyz/api/v2/?token=692ea5c1db4bdd4ff71a3ab35cf710d4&lang=en&q=';
 
     
     public function getData(string $query)
@@ -14,10 +14,11 @@ class Gapi extends \Headline\Base
         $data = file_get_contents(self::uri . $query);
         $data = json_decode($data, true);
         $res  = [];
-
+        
+    
         if ((int) $data['count_results'] > 0) {
 
-            $data = $data['content'];
+            $data = $data['articles'];
 
             foreach ($data as $i => $item) {
 
@@ -26,17 +27,9 @@ class Gapi extends \Headline\Base
                 $res[$i]['link']    = $item['link'];
                 $res[$i]['website'] = $item['website'];
                 $res[$i]['pubdate'] = strtotime($item['date']);
-                $res[$i]['image']   = null;
+                $res[$i]['image']   = $item['image'];
                 $res[$i]['author']  = null;
-
-                //arrays
-                if (!empty($item['thumbnail'])) {
-                    $res[$i]['image'] = $item['thumbnail'][0];
-                }
-
-                if (!empty($item['author'])) {
-                    $res[$i]['author'] = $item['author'];
-                }
+                $res[$i]['summary'] = $item['desc'];
 
             }
 

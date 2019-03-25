@@ -4,16 +4,27 @@
 &.site {
     padding: $measure;
     text-align: center;
+    background-color: $black;
+    border-top: 0.5rem solid $red;
 
     .title {
         @include reset-box;
+        color: $white;
        
+    }
+
+    .logo {
+        a {
+            color: $white;
+        }
+
     }
 
     .copyright {
         @include max-width;
         text-align: center;
         padding: $measure $zero;
+        color: $white;
     }
 
     .nav {
@@ -26,9 +37,10 @@
         a {
             text-transform: uppercase;
             font-weight: $bold;
-            color: $black;
+            color: $white;
             font-size: ($measure * 0.8);
             margin: $zero $measure;
+            color: $white;
             
         }
     }

@@ -26,12 +26,13 @@
         @include flex-center;
         flex-direction: column;
         position: relative;
-        color: $black;
+        color: $white;
         text-decoration: none;
         border-bottom: 1px solid $black;
         display: block;
         min-height: ($measure * 10);
         overflow: hidden;
+        background-color: $black;
     
 
 
@@ -63,17 +64,14 @@
                     text-align: center;
                 }
 
-                @include breakpoint(desktop) {
-                    font-size: $measure;
 
-                }
             }
         }
 
         &.image {
             color: $white;
             background-color: $black;
-            
+            overflow: hidden;
 
             @include breakpoint(tablet) {
                 border: none;
@@ -81,7 +79,8 @@
 
             &:hover {
                 .bg {
-                    opacity: 0.5;
+                    opacity: 1;
+                    transform: scale(3);
                 }
             }
 
@@ -97,6 +96,7 @@
 
             .pubdate {
                 text-align: left;
+                font-size: ($measure * 0.8);
             }
 
             .bg {
@@ -104,12 +104,14 @@
                 background-size: cover;
                 background-position: center center;
                 z-index: 1;
-                transition: opacity 0.5s $ease-out;
+                transition: opacity 3s $ease-out,  transform 40s $ease-out;
+                transition-delay: 1s;
                 opacity: 0.5;
+                margin: $zero;
 
 
                 @include breakpoint(tablet) {
-                    opacity: 1;
+                    opacity: 0.5;
                 }
     
             }

@@ -24,7 +24,9 @@ class PageController extends AbstractController
         //if (!$page->checkBot()) {
            // $template = 'page/react.html.twig';
        // } else {
-            $template = 'page/home.html.twig';
+        
+        
+        $template = 'page/home.html.twig';
             $pageTemplate = 'page/'. $slug .'.html.twig';
             if ($this->get('twig')->getLoader()->exists($pageTemplate)) {
                 $template = $pageTemplate;

@@ -1,0 +1,12 @@
+img {
+  max-width: 90vw;
+  width: 90vw;
+  height: unset;
+  margin: $measure auto;
+  display: block;
+
+  @include breakpoint("tablet") {
+	width: 100%;
+	max-width: 100%;
+  }
+}

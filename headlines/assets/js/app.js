@@ -12,6 +12,4 @@ require('../scss/app.scss');
 import headlinesReact from './react/app';
 
 
-
-
-
+alert('hello');

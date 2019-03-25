@@ -10,6 +10,9 @@
           <option name="port" value="21" />
         </fileTransfer>
       </webServer>
+      <webServer id="b019ba60-f08c-425c-85f3-d912f43d33a3" name="dev" url="http://headlines.loc/">
+        <fileTransfer port="0" mountedRoot="$PROJECT_DIR$/../devilbox/data/www/headlines" accessType="MOUNT" />
+      </webServer>
     </option>
   </component>
 </project>

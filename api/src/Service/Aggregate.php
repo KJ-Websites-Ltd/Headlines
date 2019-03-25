@@ -24,8 +24,8 @@ class Aggregate extends Base
     {
 
         //pick a random source
-        $source = self::sourceCollection;
         $source = self::sourceCollection[array_rand(self::sourceCollection)];
+        
         //get the result
         $result = $this->getContainer()->get(self::sourceBaseName . ucwords($source))->getData($this->getQuery());
 
@@ -105,6 +105,7 @@ class Aggregate extends Base
     {
 
         $res = $this->getResult();
+        
         if (!empty($res)) {
 
             foreach ($res as $item) {
@@ -124,13 +125,18 @@ class Aggregate extends Base
                 $query = urldecode($this->getQuery());
 
                 //if the html doesnt include the query, then this is too general a piece of news
-                $process = false;
-                if (stripos($html, $query) !== false) {
-                    $process = true;
+                $process = [];
+                $queryArray = explode(' ', $query);
+                foreach($queryArray as $q) {
+                    if (stripos($html, $q) !== false) {
+                        $process[$q] = 1;
+                    } else {
+                        $process[$q] = 0;
+                    }
                 }
-
-
-                if ($process === true) {
+                
+    
+                if (!in_array(0, $process)) {
 
                 $id = $this->getContainer()->get('headlineModelItem')->postSingle($i, self::newsItemType);
 

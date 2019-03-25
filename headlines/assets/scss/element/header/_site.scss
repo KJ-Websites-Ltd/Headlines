@@ -27,7 +27,7 @@
 
         a {
 
-            color: $black;
+            color: lighten($black, 20);
             text-decoration: none;
 
             &.hamburger {

@@ -106,10 +106,12 @@ class Advert extends Base
     public function getSingleByTitle($title)
     {
 
-        $cacheName = 'advert.get_single_by_title' . urlencode($title);
-        $res       = $this->getCache()->get($cacheName);
-
-        if (!$res) {
+        $cacheName = 'advert.get_single_by_title_' . urlencode($title);
+        $cacheItem = $this->getUtilService()->getCacheItem($cacheName);
+    
+        if ($cacheItem->isHit()) {
+            $res = $cacheItem->get();
+        } else {
 
             $advert = $this->getEm()->getRepository(Item::class)->findOneByTitleAndType($title, 4);
             $res    = [];
@@ -117,8 +119,9 @@ class Advert extends Base
             if (!empty($advert)) {
                 $this->setSingleItem($advert);
                 $res['data'] = $advert->getContent()[0]->getData();
-
-                $this->getCache()->set($cacheName, $res);
+    
+                //save to the cache
+                $this->getUtilService()->setCacheItem($cacheItem, $res);
             }
 
         }

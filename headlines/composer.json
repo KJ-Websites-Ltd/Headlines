@@ -30,7 +30,7 @@
     "require-dev": {
         "symfony/maker-bundle": "^1.8",
         "symfony/profiler-pack": "^1.0",
-        "symfony/web-server-bundle": "*"
+        "symfony/web-server-bundle": "4.2.*"
     },
     "config": {
         "preferred-install": {
@@ -74,7 +74,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.1.*"
+            "require": "4.2.*"
         }
     }
 }

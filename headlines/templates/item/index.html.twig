@@ -12,33 +12,29 @@
             
             <div class="text">
             <h1 class="title">{{page.title}}</h1>
-            <h2 class="summary">{{page.summary}}
+            <h2 class="summary">{{page.summary|truncate(256)}}
                 {% for aut in page.author %}
                 <span>{{aut}}</span>
                 {% endfor %}
             </h2>
             <h3 class="pubdate">{{page.updated_at|date('dS F Y H:i:s')}}</h3>
 
-            <h4 class="link">{{page.advert|raw}}</h4>
-
-            {% if page.html is not empty %}
+                {#{% if page.html is not empty %}
             <h3 class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></h3>
-            {% endif %}
+            {% endif %}#}
             
             </div>
         </header>
 
         {% if page.html is not empty %}
         <div class="content">
-            {{page.html|raw}}
+            {{page.html|striptags('<img><figure><h1><h2><h3><h4><h5><h6><ol><ul><li><p><strong><em><a>')|raw}}
         </div>
         {% endif %}
         
 
         <footer class="footer">
-            <h2 class="original"><strong>Originally posted by {{page.website}} on {{page.updated_at|date('dS F Y H:i:s')}}</strong></h2>
-            <p class="original"><a href="{{page.link}}" target="_blank">{{page.link}}</a></p>
-            
+            <h4 class="original"><strong>Originally posted by <a href="{{page.link}}" target="_blank">{{page.link}}</a> on {{page.updated_at|date('dS F Y H:i:s')}}</strong></h4>
         </footer>
 
     </article>

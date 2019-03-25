@@ -1,181 +1,181 @@
 &.item {
 
-    .header {
-        @include reset-box;
-        background-color: $black;
+  .header {
+	@include reset-box;
+	background-color: $black;
+
+	&.image {
+	  padding: ($screen-height / 4) $zero $zero $zero;
+	  background-size: cover;
+	  background-position: center top;
+	  background-repeat: no-repeat;
+	  background-attachment: fixed;
+
+	  @include breakpoint(tablet) {
+		padding: ($screen-height / 2) $zero $zero $zero;
+	  }
+	}
+
+	.text {
+	  background: linear-gradient(rgba($black, 0), $black);
+
+	  .title {
+		@include max-width;
+		color: $white;
+		font-size: ($measure * 2.6);
+		padding: $measure;
+
+	  }
+
+	  .summary, .pubdate {
+		@include max-width;
+		color: $white;
+		padding: ($measure / 2) $measure;
+
+	  }
+
+	  .summary {
+		font-size: ($measure * 1.2);
+	  }
+
+	  .link {
+		@include max-width;
+		text-transform: uppercase;
+		padding: $measure $zero;
+
+		@include breakpoint(tablet) {
+		  padding: $measure;
+		}
+
+		a {
+		  display: block;
+		  background-color: $white;
+		  color: $black;
+		  text-decoration: none;
+		  padding: $measure;
+		  text-align: center;
+		  font-size: ($measure * 1.2);
+		}
+	  }
+
+	  .original {
+
+		background-color: $red;
+
+		&:hover {
+		  background-color: darken($red, 20);
+		}
+
+		a {
+		  @include flex-center;
+		  @include max-width;
+		  justify-content: flex-start;
+		  overflow-wrap: break-word;
+		  word-wrap: break-word;
+		  hyphens: auto;
+		  color: $white;
+		  padding: $measure;
+		  font-size: ($measure * 1.2);
+		  text-decoration: none;
+		  overflow-x: hidden;
+
+		  &:before {
+			@extend .material-icons;
+			content: 'open_in_new';
+			font-size: ($measure * 2);
+			margin-right: $measure;
+			display: none;
+
+			@include breakpoint("tablet") {
+			  display: block;
+
+			}
+		  }
+
+		}
+	  }
+	}
+
+  }
+
+  .content {
+	padding: $measure;
+	max-width: $max-width;
+	margin: $zero auto;
+
+	p {
+	  color: lighten($black, 20);
+	}
+
+	a {
+	  color: darken($red, 10);
+	  font-weight: $bold;
+	  text-decoration: none;
+	  border-bottom: 1px solid $red;
+	}
+
+	img {
+	  display: block;
+	  clear: both;
+	  margin: $measure auto;
+
+	  @include breakpoint("tablet") {
+		margin: $measure $zero;
+	  }
+	}
+
+	h1, h2, h3, h4 {
+	  background-color: lighten($black, 20);
+	  color: $white;
+	  padding: 0.5em 1em;
+	  margin: $measure -$measure;
+
+	  @include breakpoint("tablet") {
+		margin: $measure $zero;
+		background-color: transparent;
+		color: $black;
+		padding: $zero;
+	  }
+
+	}
+
+	ul, ol {
+	  li {
+		a, p, div, img {
+		  @include reset-box;
+		  display: inline;
+		  clear: none;
+
+		}
+	  }
+	}
+
+  }
+
+  .footer {
+
+	padding: $measure $zero;
+	background-color: $black;
+	color: $white;
+
+	.original {
+	  @include reset-box;
+	  @include max-width;
+	  text-align: center;
+	  line-height: 2;
+
+	  @include breakpoint(desktop) {
+		text-align: left;
+		padding: $zero $measure;
+	  }
+
+	  a {
+		color: $white;
+	  }
 
 
-        &.image {
-            padding: ($screen-height / 4) $zero $zero $zero;
-            background-size: cover;
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+	}
 
-            @include breakpoint(tablet) {
-                padding: ($screen-height / 2) $zero $zero $zero;
-            }
-        }
- 
+  }
 
-        .text {
-            background: linear-gradient(rgba($black, 0), $black);
-            
-
-            .title {
-                @include max-width;
-                color: $white;
-                font-size: ($measure * 2.6);
-                padding: $measure;
-                
-            }
-
-            .summary, .pubdate {
-                @include max-width;
-                color: $white;
-                padding: ($measure / 2) $measure;
-                
-            }
-
-            .summary {
-                font-size: ($measure * 1.2);
-            }
-
-            .link {
-                @include max-width;
-                text-transform: uppercase;
-                padding: $measure $zero;
-
-                @include breakpoint(tablet) {
-                    padding: $measure;
-                }
-
-                a {
-                    display: block;
-                    background-color: $white;
-                    color: $black;
-                    text-decoration: none;
-                    padding: $measure;
-                    text-align: center;
-                    font-size: ($measure * 1.2);
-                }
-            }
-
-            .original {
-
-                background-color: $red;
-
-                &:hover {
-                    background-color: darken($red, 20);
-                }
-
-                a {
-                    @include flex-center;
-                    @include max-width;
-                    justify-content: flex-start;
-                    overflow-wrap: break-word;
-                    word-wrap: break-word;
-                    hyphens: auto;
-                    color: $white;
-                    padding: $measure;
-                    font-size: ($measure * 1.2);
-                    text-decoration: none;
-
-                    
-
-                    &:before {
-                        @extend .material-icons;
-                        content: 'open_in_new';
-                        font-size: ($measure * 2);
-                        margin-right: $measure;
-                        
-                    }
-                    
-                }
-            }
-        }
-
-    }
-
-    .content {
-        padding: $measure;
-        max-width: $max-width;
-        margin: $zero auto;
-
-        img {
-            display: block;
-            clear: both;
-            margin: $measure auto;
-        }
-
-        ul, ol {
-            li {
-                a, p, div, img {
-                    @include reset-box;
-                    display: inline;
-                    clear: none;
-
-                }
-            }
-        }
-       
-    }
-
-
-    .footer {
-        
-        padding: $measure $zero;
-        background-color: $black;
-        color: $white;
-
-       
-
-      
-
-        .original {
-            @include reset-box;
-            @include max-width;
-            text-align: center;
-
-                @include breakpoint(desktop) {
-                    text-align: left;
-                    padding: $zero $measure;
-                }
-
-            strong {
-                @extend .title;
-                
-            }
-            
-            a {
-                @include flex-center;
-                @include max-width;
-                justify-content: flex-start;
-                color: $white;
-                padding: $measure;
-                font-size: $measure;
-                text-decoration: none;
-                overflow-wrap: break-word;
-                    word-wrap: break-word;
-                    hyphens: auto;
-
-                
-                &:before {
-                    @extend .material-icons;
-                    content: 'open_in_new';
-                    font-size: ($measure * 2);
-                    margin-right: $measure;
-                    display: none;
-                    @include breakpoint(desktop) {
-                        display: block;
-                    }
-                    
-                }
-                
-            }
-        }
-
-
-    }
-    
 }

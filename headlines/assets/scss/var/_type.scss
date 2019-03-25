@@ -1,55 +1,65 @@
 
+@import url('//fonts.googleapis.com/css?family=Material+Icons|Anton|Merriweather|Libre+Baskerville');
+@import url('//s3.amazonaws.com/icomoon.io/114779/Socicon/style.css?9ukd8d');
 
-
-
-$body: 'Open Sans', sans-serif;
+$body: 'Merriweather', serif;
 $heading: 'Anton', sans-serif;
 $serif: 'Libre Baskerville', serif;
 $icon: 'Material Icons';
 
-$bold: 700;
+$bold: 600;
 $normal: 500;
 
-
-h1,h2,h3,h4 {
-	font-family: $heading;
+h1, h2, h3, h4 {
+  font-family: $heading;
   font-weight: $normal;
   line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+
+  @include breakpoint("tablet") {
+    text-align: left;
+  }
 }
 
 h1 {
-  font-size: ($measure * 1.2);
+  font-size: ($measure * 2);
   @include breakpoint(desktop) {
-    font-size: ($measure * 2);
+	font-size: ($measure * 2.6);
   }
 }
 
 h2 {
-  font-size: ($measure * 1.1);
+  font-size: ($measure * 1.4);
   @include breakpoint(tablet) {
-    font-size: ($measure * 1.5);
+	font-size: ($measure * 1.8);
   }
 }
 
 h3 {
-  font-size: $measure;
+  font-size: ($measure * 1.4);
   @include breakpoint(tablet) {
-    font-size: ($measure * 1.2);
+	font-size: ($measure * 1.6);
   }
 }
 
 body, p, ul, ol, nav {
-	font-family: $body;
-	font-size: 1rem;
+  font-family: $body;
+  font-size: 1rem;
   font-weight: $normal;
-  line-height: 1.4;
+  line-height: 2;
+
+}
+
+b, strong {
+  font-weight: unset !important;
 }
 
 p {
   text-align: left;
 
   a {
-    color: $black;
+	color: $black;
   }
 }
 
@@ -60,14 +70,14 @@ p {
 }
 
 .serif {
-    font-family: $serif;
-  }
+  font-family: $serif;
+}
 
 .material-icons {
   font-family: $icon;
   font-weight: normal;
   font-style: normal;
-  font-size: $measure;  /* Preferred icon size */
+  font-size: $measure; /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -89,12 +99,12 @@ p {
 }
 
 .screen-reader-text {
-    position: absolute !important;
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    word-wrap: normal!important;
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  word-wrap: normal !important;
 }
 
 .not-screen-reader-text {
