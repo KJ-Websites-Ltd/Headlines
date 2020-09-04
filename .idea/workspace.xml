@@ -20,8 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77a4652d-443e-485a-b493-c406fa22c06e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/045-headlines-kj-websites.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/045-headlines-kj-websites.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/.env" beforeDir="false" afterPath="$PROJECT_DIR$/api/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headlines/.env.dist" beforeDir="false" afterPath="$PROJECT_DIR$/headlines/.env.dist" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,8 +65,16 @@
       <option name="presentableId" value="Default" />
       <updated>1599119343370</updated>
       <workItem from="1599119345876" duration="117000" />
-      <workItem from="1599233724799" duration="688000" />
+      <workItem from="1599233724799" duration="1267000" />
     </task>
+    <task id="LOCAL-00001" summary="remove details from .env file">
+      <created>1599234830599</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1599234830599</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -82,7 +91,15 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="remove details from .env file" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove details from .env file" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="2915" y="263" width="800" height="671" key="#Deployment" timestamp="1599235094499">
+      <screen x="2360" y="0" width="1920" height="1200" />
+    </state>
+    <state x="2915" y="263" width="800" height="671" key="#Deployment/2360.0.1920.1200/4280.0.1920.1080/0.27.1280.997/1280.0.1080.1920@2360.0.1920.1200" timestamp="1599235094499" />
     <state x="582" y="209" width="424" height="478" key="FileChooserDialogImpl" timestamp="1599119375595">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
@@ -91,5 +108,9 @@
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="311" y="86" key="SettingsEditor/0.27.1600.873@0.27.1600.873" timestamp="1599119394233" />
+    <state x="2915" y="337" width="800" height="522" key="Vcs.Push.Dialog.v2" timestamp="1599234834199">
+      <screen x="2360" y="0" width="1920" height="1200" />
+    </state>
+    <state x="2915" y="337" width="800" height="522" key="Vcs.Push.Dialog.v2/2360.0.1920.1200/4280.0.1920.1080/0.27.1280.997/1280.0.1080.1920@2360.0.1920.1200" timestamp="1599234834199" />
   </component>
 </project>
